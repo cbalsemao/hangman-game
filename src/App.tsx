@@ -4,22 +4,23 @@ import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 import { Grid } from "@mui/material";
 
+/*const Wrapper = styled.div`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+`;*/
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  //height: 100vh;
 `;
 
 const ButtonWrapper = styled.div``;
 
-const AlphabetWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-`;
+const AlphabetWrapper = styled.div``;
 
 const alphabet: string[] = [
   "a",
