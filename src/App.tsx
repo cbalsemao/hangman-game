@@ -34,6 +34,7 @@ const MovieWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 25%;
+  font-size: 20px;
 `;
 
 enum GameStatus {
@@ -106,8 +107,8 @@ function App() {
       ) : (
         <>
           <MovieWrapper>
-            <p>El señor ahorcado</p>
-            {word}
+            <p>img sr en la horca</p>
+            <p>{word}</p>
           </MovieWrapper>
 
           <Grid
