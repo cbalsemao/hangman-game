@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
@@ -46,15 +45,15 @@ enum GameStatus {
 
 const Movies = [
   "Hulk",
-  "Spiderman",
+  /*"Spiderman",
   "Ironman",
   "Thor",
-  "Captain America",
+  "Captain-America",
   "Black Widow",
-  "Doctor Strange",
+  "Doctor-Strange",
   "Antman",
-  "Black Panther",
-  "Captain Marvel",
+  "Black-Panther",
+  "Captain-Marvel",*/
 ];
 
 const selectRandomMovie = () => {
@@ -62,53 +61,70 @@ const selectRandomMovie = () => {
   return Movies[i];
 };
 
+const getHiddenWord = (word: string, guessedLetters: string[]) => {
+  return word
+    .split("")
+    .map((letter) =>
+      letter === " " ? " " : guessedLetters.includes(letter) ? letter : "-"
+    )
+    .join("");
+};
+
 function App() {
   const [countdown, setCountdown] = useState<number>(6);
   const [gameStatus, setGameStatus] = useState<string>(GameStatus.ToStart);
-  const [secretWord, setSecretWord] = useState<string>(selectRandomMovie()); //esto hay que editarlo
-  const [word, setWord] = useState<string>("");
+  const [secretWord, setSecretWord] = useState<string>("");
+  const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
 
-  const secretWordLength = secretWord.length;
-  const secretWordToLowerCase = secretWord.toLowerCase();
+  const secretWordLowercase = secretWord.toLowerCase();
 
-  const handleWordToGuess = (letter: string) => {
-    let newWord = "";
-
-    for (let i = 0; i < secretWordLength; i++) {
-      if (secretWordToLowerCase[i] === letter) {
-        newWord += letter;
-      } else if (secretWordToLowerCase[i] !== word[i] && word[i] !== "-") {
-        newWord += "-";
-        setCountdown(countdown - 1);
-      } else {
-        newWord += word[i];
-        setCountdown(countdown - 1);
-      }
-    }
-
-    setWord(newWord);
-  };
+  const hiddenWord = getHiddenWord(secretWordLowercase, guessedLetters);
 
   const handleStart = () => {
+    const newSecretWord = selectRandomMovie();
+    setSecretWord(newSecretWord);
+    setGuessedLetters([]);
+    setCountdown(6);
     setGameStatus(GameStatus.InProgress);
   };
 
-  return (
-    <Wrapper>
-      <TitleWrapper>
-        <h1>Hangman Game</h1>
-      </TitleWrapper>
-      {gameStatus === GameStatus.ToStart ? (
+  const handleWordToGuess = (letter: string) => {
+    console.log("estoy aqui");
+    if (secretWordLowercase.includes(letter)) {
+      setGuessedLetters([...guessedLetters, letter]);
+
+      const hiddenWord = getHiddenWord(secretWordLowercase, guessedLetters);
+
+      if (!hiddenWord.includes("-")) {
+        setGameStatus(GameStatus.Win);
+      }
+    } else {
+      if (countdown === 0) {
+        setGameStatus(GameStatus.Lose);
+      } else {
+        setCountdown(countdown - 1);
+      }
+    }
+  };
+
+  let content;
+
+  switch (gameStatus) {
+    case GameStatus.ToStart:
+      content = (
         <ButtonWrapper>
           <Button onClick={handleStart} variant="contained" color="primary">
             Start
           </Button>
         </ButtonWrapper>
-      ) : (
+      );
+      break;
+    case GameStatus.InProgress:
+      content = (
         <>
           <MovieWrapper>
             <p>img sr en la horca</p>
-            <p>{word}</p>
+            <p>{hiddenWord}</p>
           </MovieWrapper>
 
           <Grid
@@ -135,7 +151,36 @@ function App() {
             ))}
           </Grid>
         </>
-      )}
+      );
+      break;
+    case GameStatus.Win:
+      console.log("estoy en Win");
+      content = (
+        <ButtonWrapper>
+          <Button onClick={handleStart} variant="contained" color="primary">
+            You Win! Play Again
+          </Button>
+        </ButtonWrapper>
+      );
+      break;
+    case GameStatus.Lose:
+      content = (
+        <ButtonWrapper>
+          <p>You Lose!</p>
+          <Button onClick={handleStart} variant="contained" color="primary">
+            Play Again
+          </Button>
+        </ButtonWrapper>
+      );
+      break;
+  }
+
+  return (
+    <Wrapper>
+      <TitleWrapper>
+        <h1>Hangman Game</h1>
+      </TitleWrapper>
+      {content}
     </Wrapper>
   );
 }
