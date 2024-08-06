@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Button from "@mui/material/Button";
 import { Grid } from "@mui/material";
 import { alphabet } from "./utils/Alphabet";
+import { hangmanLives } from "./utils/HangmanLives";
 
 const Wrapper = styled.div`
   margin: 0;
@@ -45,15 +46,16 @@ enum GameStatus {
 
 const Movies = [
   "Hulk",
-  /*"Spiderman",
+  "Black Widow",
+  "Spiderman",
   "Ironman",
   "Thor",
-  "Captain-America",
+  "Captain America",
   "Black Widow",
-  "Doctor-Strange",
+  "Doctor Strange",
   "Antman",
-  "Black-Panther",
-  "Captain-Marvel",*/
+  "Black Panther",
+  "Captain Marvel",
 ];
 
 const selectRandomMovie = () => {
@@ -80,16 +82,17 @@ function App() {
 
   const hiddenWord = getHiddenWord(secretWordLowercase, guessedLetters);
 
+  let lives = hangmanLives[countdown];
+
   const handleStart = () => {
+    setCountdown(6);
     const newSecretWord = selectRandomMovie();
     setSecretWord(newSecretWord);
     setGuessedLetters([]);
-    setCountdown(6);
     setGameStatus(GameStatus.InProgress);
   };
 
   const handleWordToGuess = (letter: string) => {
-    console.log("estoy aqui");
     if (secretWordLowercase.includes(letter)) {
       setGuessedLetters([...guessedLetters, letter]);
 
@@ -123,7 +126,7 @@ function App() {
       content = (
         <>
           <MovieWrapper>
-            <p>img sr en la horca</p>
+            <p>{lives}</p>
             <p>{hiddenWord}</p>
           </MovieWrapper>
 
@@ -154,7 +157,6 @@ function App() {
       );
       break;
     case GameStatus.Win:
-      console.log("estoy en Win");
       content = (
         <ButtonWrapper>
           <Button onClick={handleStart} variant="contained" color="primary">
