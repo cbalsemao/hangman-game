@@ -1,41 +1,16 @@
 import { useState } from "react";
-import styled from "@emotion/styled";
-import Button from "@mui/material/Button";
-import { Grid } from "@mui/material";
 import { alphabet } from "./utils/Alphabet";
 import { hangmanLives } from "./utils/HangmanLives";
-
-const Wrapper = styled.div`
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const TitleWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ButtonWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-`;
-
-const MovieWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 25%;
-  font-size: 20px;
-`;
+import Button from "@mui/material/Button";
+import { Grid } from "@mui/material";
+import {
+  ButtonWrapper,
+  MovieWrapper,
+  TitleWrapper,
+  Wrapper,
+} from "./styles/AppStyles";
+import { Movies } from "./utils/Movies";
+import { HangmanLivesType } from "./utils/HangmanLives";
 
 enum GameStatus {
   ToStart = "ToStart",
@@ -43,20 +18,6 @@ enum GameStatus {
   Win = "Win",
   Lose = "Lose",
 }
-
-const Movies = [
-  "Hulk",
-  "Black Widow",
-  "Spiderman",
-  "Ironman",
-  "Thor",
-  "Captain America",
-  "Black Widow",
-  "Doctor Strange",
-  "Antman",
-  "Black Panther",
-  "Captain Marvel",
-];
 
 const selectRandomMovie = () => {
   const i = Math.floor(Math.random() * Movies.length);
@@ -79,10 +40,11 @@ function App() {
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
 
   const secretWordLowercase = secretWord.toLowerCase();
-
   const hiddenWord = getHiddenWord(secretWordLowercase, guessedLetters);
 
-  let lives = hangmanLives[countdown];
+  const currentLife = hangmanLives.find(
+    (life) => life.key === countdown
+  ) as HangmanLivesType;
 
   const handleStart = () => {
     setCountdown(6);
@@ -95,9 +57,7 @@ function App() {
   const handleWordToGuess = (letter: string) => {
     if (secretWordLowercase.includes(letter)) {
       setGuessedLetters([...guessedLetters, letter]);
-
       const hiddenWord = getHiddenWord(secretWordLowercase, guessedLetters);
-
       if (!hiddenWord.includes("-")) {
         setGameStatus(GameStatus.Win);
       }
@@ -126,10 +86,9 @@ function App() {
       content = (
         <>
           <MovieWrapper>
-            <p>{lives}</p>
+            <p>{currentLife.image}</p>
             <p>{hiddenWord}</p>
           </MovieWrapper>
-
           <Grid
             container
             style={{
