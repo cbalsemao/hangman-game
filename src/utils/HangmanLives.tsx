@@ -13,13 +13,17 @@ export type HangmanLivesType = {
 
 export const hangmanLives = [
   { key: 0, image: <img src={img6} width="200" height="200" /> },
-  { key: 1, image: <img src={img5} width="200" height="200" /> },
-  { key: 2, image: <img src={img4} width="200" height="200" /> },
-  { key: 3, image: <img src={img3} width="200" height="200" /> },
-  { key: 4, image: <img src={img2} width="200" height="200" /> },
-  { key: 5, image: <img src={img1} width="200" height="200" /> },
+  { key: 1, image: <img src={img6} width="200" height="200" /> },
+  { key: 2, image: <img src={img5} width="200" height="200" /> },
+  { key: 3, image: <img src={img4} width="200" height="200" /> },
+  { key: 4, image: <img src={img3} width="200" height="200" /> },
+  { key: 5, image: <img src={img2} width="200" height="200" /> },
   {
     key: 6,
+    image: <img src={img1} width="200" height="200" />,
+  },
+  {
+    key: 7,
     image: <img src={img0} width="200" height="200" />,
   },
 ];

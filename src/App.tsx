@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { alphabet } from "./utils/Alphabet";
 import { hangmanLives } from "./utils/HangmanLives";
 import Button from "@mui/material/Button";
@@ -34,7 +34,7 @@ const getHiddenWord = (word: string, guessedLetters: string[]) => {
 };
 
 function App() {
-  const [countdown, setCountdown] = useState<number>(6);
+  const [countdown, setCountdown] = useState<number>(7);
   const [gameStatus, setGameStatus] = useState<string>(GameStatus.ToStart);
   const [secretWord, setSecretWord] = useState<string>("");
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
@@ -46,8 +46,16 @@ function App() {
     (life) => life.key === countdown
   ) as HangmanLivesType;
 
+  useEffect(() => {
+    if (countdown === 0) {
+      setGameStatus(GameStatus.Lose);
+    } else if (hiddenWord === secretWordLowercase) {
+      setGameStatus(GameStatus.Win);
+    }
+  }, [countdown, hiddenWord]);
+
   const handleStart = () => {
-    setCountdown(6);
+    setCountdown(7);
     const newSecretWord = selectRandomMovie();
     setSecretWord(newSecretWord);
     setGuessedLetters([]);
@@ -57,16 +65,8 @@ function App() {
   const handleWordToGuess = (letter: string) => {
     if (secretWordLowercase.includes(letter)) {
       setGuessedLetters([...guessedLetters, letter]);
-      const hiddenWord = getHiddenWord(secretWordLowercase, guessedLetters);
-      if (!hiddenWord.includes("-")) {
-        setGameStatus(GameStatus.Win);
-      }
     } else {
-      if (countdown === 0) {
-        setGameStatus(GameStatus.Lose);
-      } else {
-        setCountdown(countdown - 1);
-      }
+      setCountdown(countdown - 1);
     }
   };
 
@@ -88,6 +88,7 @@ function App() {
           <MovieWrapper>
             <p>{currentLife.image}</p>
             <p>{hiddenWord}</p>
+            <p>{currentLife.key}</p>
           </MovieWrapper>
           <Grid
             container
