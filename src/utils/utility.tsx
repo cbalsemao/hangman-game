@@ -53,8 +53,8 @@ export const alphabet: string[] = [
   "z",
 ];
 
-export const MOCK_MOVIES = ["Hulk"];
-/*"Black Widow",
+export const MOCK_MOVIES = [
+  "Black Widow",
   "Spiderman",
   "Ironman",
   "Thor",
@@ -64,7 +64,7 @@ export const MOCK_MOVIES = ["Hulk"];
   "Antman",
   "Black Panther",
   "Captain Marvel",
-  */
+];
 export enum GameStatus {
   ToStart = "ToStart",
   InProgress = "InProgress",

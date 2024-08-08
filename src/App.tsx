@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import Button from "@mui/material/Button";
 import { Grid } from "@mui/material";
 import {
@@ -22,6 +22,7 @@ import {
 } from "./utils/utility";
 import { HangmanSteps } from "./utils/types";
 import { ButtonHM } from "./utils/components";
+import { count } from "console";
 
 function App() {
   const [countdown, setCountdown] = useState<HangmanSteps>(COUNTDOWN_START);
@@ -75,6 +76,7 @@ function App() {
     setGuessedLetters([]);
     setWrongLetters([]);
   };
+
   return (
     <Wrapper>
       <TitleWrapper>
@@ -109,7 +111,14 @@ function App() {
         {isGameEndedWin(gameStatus) && (
           <>
             <h1>{"MOVIE WAS: " + secretWord + " !!! 😊"}</h1>
-            <ButtonHM label={"You Win! Play Again"} onClick={handleStart} />
+            <ButtonHM
+              title={"You win!"}
+              label={"You Win! Play Again"}
+              onClick={() => {
+                flushGame();
+                handleStart();
+              }}
+            />
           </>
         )}
         {isGameEndedLose(gameStatus) && (
