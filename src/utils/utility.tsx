@@ -113,14 +113,14 @@ export const calculateScore = (
 export type Ranking = {
   score: number;
   name: string;
-}; //sacar
+};
 
-export const ranking: Ranking[] = [];
+export const Ranking: Ranking[] = [{ name: "Player", score: 0 }];
 
 export const insertInRanking = (
   name: string,
   score: number,
-  ranking: Ranking[]
+  ranking: Ranking[] = Ranking
 ): void => {
   for (let i = 0; i < ranking.length; i++) {
     if (score > ranking[i].score) {

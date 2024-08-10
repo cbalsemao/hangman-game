@@ -34,7 +34,6 @@ function App() {
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [wrongLetters, setWrongLetters] = useState<string[]>([]);
   const [name, setName] = useState<string>(""); //estoy aqui
-  const [ranking, setRanking] = useState<Ranking[]>([]);
 
   let scorePlayer = calculateScore(wrongLetters, guessedLetters);
 
@@ -58,8 +57,8 @@ function App() {
         setWrongLetters([...wrongLetters, letter]);
         let newCountdown = countdown - 1;
         if (newCountdown === COUNTDOWN_END) {
-          insertInRanking(name, scorePlayer, ranking);
           setGameStatus(GameStatus.Lose);
+          insertInRanking(name, scorePlayer, Ranking);
         } else {
           setCountdown(newCountdown as HangmanSteps);
         }

@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { ButtonWrapper } from "../styles/styleguide";
-import { ranking } from "./utility";
+import { Ranking } from "./utility";
 
 interface ButtonHMProps {
   title?: string;
@@ -19,21 +19,14 @@ export const ButtonHM = ({ title, label, onClick }: ButtonHMProps) => {
   );
 };
 
-/*type Ranking = {
-  name: string;
-  score: number;
-}
-
-*/
-
 export const RankingBoard = () => {
   return (
     <div>
       <h1>Ranking</h1>
       <ul>
-        {ranking.map((player, index) => (
+        {Ranking.map((player, index) => (
           <li key={index}>
-            {player.name} - {player.score}
+            {player.name} {player.score}
           </li>
         ))}
       </ul>
