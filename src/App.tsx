@@ -32,7 +32,7 @@ function App() {
   const [secretWord, setSecretWord] = useState<string>("");
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [wrongLetters, setWrongLetters] = useState<string[]>([]);
-  const [name, setName] = useState<string>(""); //estoy aqui
+  const [name, setName] = useState<string>("");
 
   let scorePlayer = calculateScore(wrongLetters, guessedLetters);
 
@@ -57,11 +57,11 @@ function App() {
         let newCountdown = countdown - 1;
         if (newCountdown === COUNTDOWN_END) {
           setGameStatus(GameStatus.Lose);
-          insertInRanking(name, scorePlayer, Ranking);
         } else {
           setCountdown(newCountdown as HangmanSteps);
         }
       }
+      insertInRanking(name, scorePlayer, Ranking);
     },
     [countdown, guessedLetters, secretWord, wrongLetters]
   );
@@ -134,6 +134,7 @@ function App() {
                 handleStart();
               }}
             />
+            <RankingBoard />
             <ButtonHM label={"Menu"} onClick={() => flushGame()} />
           </>
         )}
