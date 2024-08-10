@@ -1,6 +1,6 @@
-import { Button } from "@mui/material";
+import { Button, Card, CardContent, Typography } from "@mui/material";
 import { ButtonWrapper } from "../styles/styleguide";
-import { Ranking } from "./utility";
+import { Ranking } from "./types";
 
 interface ButtonHMProps {
   title?: string;
@@ -21,15 +21,23 @@ export const ButtonHM = ({ title, label, onClick }: ButtonHMProps) => {
 
 export const RankingBoard = () => {
   return (
-    <div>
-      <h1>Ranking</h1>
-      <ul>
-        {Ranking.map((player, index) => (
-          <li key={index}>
-            {player.name} {player.score}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <Card sx={{ maxWidth: 345 }}>
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Ranking
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            <ul>
+              {Ranking.map((player, index) => (
+                <li key={index}>
+                  {player.name} {player.score}
+                </li>
+              ))}
+            </ul>
+          </Typography>
+        </CardContent>
+      </Card>
+    </>
   );
 };

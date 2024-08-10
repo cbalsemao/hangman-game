@@ -21,10 +21,9 @@ import {
   isGameEndedWin,
   isGameInProgress,
   isGameToStart,
-  Ranking,
   selectRandomMovie,
 } from "./utils/utility";
-import { HangmanSteps } from "./utils/types";
+import { HangmanSteps, Ranking } from "./utils/types";
 import { ButtonHM, RankingBoard } from "./utils/components";
 
 function App() {

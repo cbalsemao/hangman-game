@@ -6,7 +6,7 @@ import img3 from "../assets/img-hangman4.png";
 import img4 from "../assets/img-hangman5.png";
 import img5 from "../assets/img-hangman6.png";
 import img6 from "../assets/img-hangman7.png";
-import { HangmanSteps, Movies } from "./types";
+import { HangmanSteps, Movies, Ranking } from "./types";
 
 const HANGMAN_IMAGE_SIZE = { width: "300", height: "300" };
 
@@ -110,13 +110,6 @@ export const calculateScore = (
   return wrongLetters.length * -10 + guessedLetters.length * 100;
 };
 
-export type Ranking = {
-  score: number;
-  name: string;
-};
-
-export const Ranking: Ranking[] = [{ name: "Player", score: 0 }];
-
 export const insertInRanking = (
   name: string,
   score: number,
@@ -125,7 +118,13 @@ export const insertInRanking = (
   for (let i = 0; i < ranking.length; i++) {
     if (score > ranking[i].score) {
       ranking.splice(i, 0, { name, score });
+      if (ranking.length > 5) {
+        ranking.pop();
+      }
       return;
     }
+  }
+  if (ranking.length < 5) {
+    ranking.push({ name, score });
   }
 };
