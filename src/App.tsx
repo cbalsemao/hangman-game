@@ -1,28 +1,31 @@
 import { useCallback, useState } from "react";
 import Button from "@mui/material/Button";
-import { Grid } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 import {
   AlphabetWrapper,
+  GameOverWrapper,
   MovieWrapper,
   TitleWrapper,
   Wrapper,
 } from "./styles/styleguide";
 import {
   alphabet,
+  calculateScore,
   COUNTDOWN_END,
   COUNTDOWN_START,
   GameStatus,
   getHiddenWord,
   HANGMAN_IMAGE,
+  insertInRanking,
   isGameEndedLose,
   isGameEndedWin,
   isGameInProgress,
   isGameToStart,
+  Ranking,
   selectRandomMovie,
 } from "./utils/utility";
 import { HangmanSteps } from "./utils/types";
-import { ButtonHM } from "./utils/components";
-import { count } from "console";
+import { ButtonHM, RankingBoard } from "./utils/components";
 
 function App() {
   const [countdown, setCountdown] = useState<HangmanSteps>(COUNTDOWN_START);
@@ -30,6 +33,10 @@ function App() {
   const [secretWord, setSecretWord] = useState<string>("");
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [wrongLetters, setWrongLetters] = useState<string[]>([]);
+  const [name, setName] = useState<string>(""); //estoy aqui
+  const [ranking, setRanking] = useState<Ranking[]>([]);
+
+  let scorePlayer = calculateScore(wrongLetters, guessedLetters);
 
   const handleStart = () => {
     const newSecretWord = selectRandomMovie();
@@ -51,6 +58,7 @@ function App() {
         setWrongLetters([...wrongLetters, letter]);
         let newCountdown = countdown - 1;
         if (newCountdown === COUNTDOWN_END) {
+          insertInRanking(name, scorePlayer, ranking);
           setGameStatus(GameStatus.Lose);
         } else {
           setCountdown(newCountdown as HangmanSteps);
@@ -84,7 +92,16 @@ function App() {
       </TitleWrapper>
       <>
         {isGameToStart(gameStatus) && (
-          <ButtonHM label={"Start"} onClick={handleStart} />
+          <>
+            <TextField
+              id="outlined-basic"
+              label="Type your name"
+              variant="outlined"
+              required
+              onChange={(e) => setName(e.target.value)} //estoy aqui
+            />
+            <ButtonHM label={"Start"} onClick={handleStart} />
+          </>
         )}
 
         {isGameInProgress(gameStatus) && (
@@ -119,19 +136,30 @@ function App() {
                 handleStart();
               }}
             />
+            <ButtonHM label={"Menu"} onClick={() => flushGame()} />
           </>
         )}
         {isGameEndedLose(gameStatus) && (
           <>
-            <h1>{"MOVIE WAS: " + secretWord + " !!! 😢"}</h1>
-            <ButtonHM
-              title={"You Lose!"}
-              label={"Play Again"}
-              onClick={() => {
-                flushGame();
-                handleStart();
-              }}
-            />
+            <GameOverWrapper container spacing={1}>
+              <Grid item>
+                <h1>{"MOVIE WAS: " + secretWord + " !!! 😢"}</h1>
+                <p>
+                  {name}, your score is {scorePlayer}
+                </p>
+              </Grid>
+              <RankingBoard />
+
+              <ButtonHM
+                title={"You Lose!"}
+                label={"Play Again"}
+                onClick={() => {
+                  flushGame();
+                  handleStart();
+                }}
+              />
+              <ButtonHM label={"Menu"} onClick={() => flushGame()} />
+            </GameOverWrapper>
           </>
         )}
       </>

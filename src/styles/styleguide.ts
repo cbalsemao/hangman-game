@@ -39,3 +39,9 @@ export const AlphabetWrapper = styled(Grid)`
   align-items: center;
   flex-direction: row;
 `;
+
+export const GameOverWrapper = styled(Grid)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

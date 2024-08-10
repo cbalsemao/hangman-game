@@ -102,3 +102,30 @@ export const isGameEndedWin = (gameStatus: GameStatus) => {
 export const isGameEndedLose = (gameStatus: GameStatus) => {
   return gameStatus === GameStatus.Lose;
 };
+
+export const calculateScore = (
+  wrongLetters: string[],
+  guessedLetters: string[]
+): number => {
+  return wrongLetters.length * -10 + guessedLetters.length * 100;
+};
+
+export type Ranking = {
+  score: number;
+  name: string;
+}; //sacar
+
+export const ranking: Ranking[] = [];
+
+export const insertInRanking = (
+  name: string,
+  score: number,
+  ranking: Ranking[]
+): void => {
+  for (let i = 0; i < ranking.length; i++) {
+    if (score > ranking[i].score) {
+      ranking.splice(i, 0, { name, score });
+      return;
+    }
+  }
+};
