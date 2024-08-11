@@ -48,6 +48,7 @@ function App() {
       if (secretWord.includes(letter)) {
         const newGuessedLetters = [...guessedLetters, letter];
         if (getHiddenWord(secretWord, newGuessedLetters) === secretWord) {
+          insertInRanking(name, scorePlayer, Ranking);
           setGameStatus(GameStatus.Win);
         } else {
           setGuessedLetters(newGuessedLetters);
@@ -56,12 +57,12 @@ function App() {
         setWrongLetters([...wrongLetters, letter]);
         let newCountdown = countdown - 1;
         if (newCountdown === COUNTDOWN_END) {
+          insertInRanking(name, scorePlayer, Ranking);
           setGameStatus(GameStatus.Lose);
         } else {
           setCountdown(newCountdown as HangmanSteps);
         }
       }
-      insertInRanking(name, scorePlayer, Ranking);
     },
     [countdown, guessedLetters, secretWord, wrongLetters]
   );
@@ -96,7 +97,7 @@ function App() {
               label="Type your name"
               variant="outlined"
               required
-              onChange={(e) => setName(e.target.value)} //estoy aqui
+              onChange={(e) => setName(e.target.value)}
             />
             <ButtonHM label={"Start"} onClick={handleStart} />
           </>
