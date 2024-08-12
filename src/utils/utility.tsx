@@ -7,6 +7,7 @@ import img4 from "../assets/img-hangman5.png";
 import img5 from "../assets/img-hangman6.png";
 import img6 from "../assets/img-hangman7.png";
 import { HangmanSteps, Movies, Ranking } from "./types";
+import { MOCK_MOVIES } from "./movies";
 
 const HANGMAN_IMAGE_SIZE = { width: "300", height: "300" };
 
@@ -51,19 +52,6 @@ export const alphabet: string[] = [
   "x",
   "y",
   "z",
-];
-
-export const MOCK_MOVIES = [
-  "Black Widow",
-  "Spiderman",
-  "Ironman",
-  "Thor",
-  "Captain America",
-  "Black Widow",
-  "Doctor Strange",
-  "Antman",
-  "Black Panther",
-  "Captain Marvel",
 ];
 
 export enum GameStatus {
