@@ -1,9 +1,9 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Button from "@mui/material/Button";
 import { Grid, TextField } from "@mui/material";
 import {
   AlphabetWrapper,
-  GameOverWrapper,
+  GameEndWrapper,
   MovieWrapper,
   TitleWrapper,
   Wrapper,
@@ -21,6 +21,7 @@ import {
   isGameEndedWin,
   isGameInProgress,
   isGameToStart,
+  parseScore,
   selectRandomMovie,
 } from "./utils/utility";
 import { HangmanSteps, Ranking } from "./utils/types";
@@ -32,9 +33,21 @@ function App() {
   const [secretWord, setSecretWord] = useState<string>("");
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [wrongLetters, setWrongLetters] = useState<string[]>([]);
-  const [name, setName] = useState<string>("");
+  const temporalName = useRef("");
+  const [rankings, setRankings] = useState<Ranking[]>([]);
 
-  let scorePlayer = calculateScore(wrongLetters, guessedLetters);
+  const tmpScorePlayer = calculateScore(wrongLetters, guessedLetters);
+
+  useEffect(() => {
+    if (isGameEndedLose(gameStatus) || isGameEndedWin(gameStatus)) {
+      const updatedRankings = insertInRanking(
+        temporalName.current,
+        tmpScorePlayer,
+        rankings
+      );
+      setRankings(updatedRankings);
+    }
+  }, [gameStatus]);
 
   const handleStart = () => {
     const newSecretWord = selectRandomMovie();
@@ -45,19 +58,19 @@ function App() {
 
   const handleWordToGuess = useCallback(
     (letter: string) => {
+      if (guessedLetters.includes(letter) || wrongLetters.includes(letter))
+        return;
+
       if (secretWord.includes(letter)) {
         const newGuessedLetters = [...guessedLetters, letter];
+        setGuessedLetters(newGuessedLetters);
         if (getHiddenWord(secretWord, newGuessedLetters) === secretWord) {
-          insertInRanking(name, scorePlayer, Ranking);
           setGameStatus(GameStatus.Win);
-        } else {
-          setGuessedLetters(newGuessedLetters);
         }
       } else {
         setWrongLetters([...wrongLetters, letter]);
         let newCountdown = countdown - 1;
         if (newCountdown === COUNTDOWN_END) {
-          insertInRanking(name, scorePlayer, Ranking);
           setGameStatus(GameStatus.Lose);
         } else {
           setCountdown(newCountdown as HangmanSteps);
@@ -97,7 +110,7 @@ function App() {
               label="Type your name"
               variant="outlined"
               required
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => (temporalName.current = e.target.value)}
             />
             <ButtonHM label={"Start"} onClick={handleStart} />
           </>
@@ -126,30 +139,37 @@ function App() {
         )}
         {isGameEndedWin(gameStatus) && (
           <>
-            <h1>{"MOVIE WAS: " + secretWord + " !!! 😊"}</h1>
-            <ButtonHM
-              title={"You win!"}
-              label={"You Win! Play Again"}
-              onClick={() => {
-                flushGame();
-                handleStart();
-              }}
-            />
-            <RankingBoard />
-            <ButtonHM label={"Menu"} onClick={() => flushGame()} />
+            <GameEndWrapper container spacing={1}>
+              <Grid item>
+                <h1>{"MOVIE WAS: " + secretWord + " !!! 😊"}</h1>
+                <p>
+                  {temporalName.current}, your score is{" "}
+                  {parseScore(tmpScorePlayer)}
+                </p>
+              </Grid>
+              <ButtonHM
+                title={"You win!"}
+                label={"Play Again"}
+                onClick={() => {
+                  flushGame();
+                  handleStart();
+                }}
+              />
+
+              <ButtonHM label={"Menu"} onClick={() => flushGame()} />
+            </GameEndWrapper>
           </>
         )}
         {isGameEndedLose(gameStatus) && (
           <>
-            <GameOverWrapper container spacing={1}>
+            <GameEndWrapper container spacing={1}>
               <Grid item>
                 <h1>{"MOVIE WAS: " + secretWord + " !!! 😢"}</h1>
                 <p>
-                  {name}, your score is {scorePlayer}
+                  {temporalName.current}, your score is{" "}
+                  {parseScore(tmpScorePlayer)}
                 </p>
               </Grid>
-              <RankingBoard />
-
               <ButtonHM
                 title={"You Lose!"}
                 label={"Play Again"}
@@ -158,10 +178,20 @@ function App() {
                   handleStart();
                 }}
               />
-              <ButtonHM label={"Menu"} onClick={() => flushGame()} />
-            </GameOverWrapper>
+              <ButtonHM
+                label={"Menu"}
+                onClick={() => {
+                  temporalName.current = "";
+                  flushGame();
+                }}
+              />
+            </GameEndWrapper>
           </>
         )}
+
+        {isGameEndedLose(gameStatus) || isGameEndedWin(gameStatus) ? (
+          <RankingBoard rankings={rankings} />
+        ) : null}
       </>
     </Wrapper>
   );

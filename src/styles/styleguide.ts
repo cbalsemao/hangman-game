@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Grid } from "@mui/material";
+import { CardContent, Grid } from "@mui/material";
 
 export const Wrapper = styled.div`
   margin: 0;
@@ -8,6 +8,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  min-width: 1000px;
 `;
 
 export const TitleWrapper = styled.div`
@@ -34,14 +35,27 @@ export const MovieWrapper = styled.div`
 
 export const AlphabetWrapper = styled(Grid)`
   background-color: lightblue;
-  width: 50%;
-  justify-content: center;
-  align-items: center;
+  width: 500px;
   flex-direction: row;
+  border-radius: 42px;
+  padding: 25px;
+  min-width: 500px;
 `;
 
-export const GameOverWrapper = styled(Grid)`
+export const GameEndWrapper = styled(Grid)`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const RankingBdWrapper = styled(CardContent)`
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const RankingList = styled("ul")`
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 `;

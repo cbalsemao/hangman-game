@@ -65,6 +65,7 @@ export const MOCK_MOVIES = [
   "Black Panther",
   "Captain Marvel",
 ];
+
 export enum GameStatus {
   ToStart = "ToStart",
   InProgress = "InProgress",
@@ -103,6 +104,10 @@ export const isGameEndedLose = (gameStatus: GameStatus) => {
   return gameStatus === GameStatus.Lose;
 };
 
+export const parseScore = (score: number) => {
+  return score < 0 ? 0 : score;
+};
+
 export const calculateScore = (
   wrongLetters: string[],
   guessedLetters: string[]
@@ -112,19 +117,16 @@ export const calculateScore = (
 
 export const insertInRanking = (
   name: string,
-  score: number,
-  ranking: Ranking[] = Ranking
-): void => {
-  for (let i = 0; i < ranking.length; i++) {
-    if (score > ranking[i].score) {
-      ranking.splice(i, 0, { name, score });
-      if (ranking.length > 5) {
-        ranking.pop();
-      }
-      return;
+  newScore: number,
+  rankings: Ranking[]
+) => {
+  const targetRanking = rankings.find((ranking) => ranking.name === name);
+  if (targetRanking) {
+    if (!targetRanking.score || targetRanking.score < newScore) {
+      targetRanking.score = parseScore(newScore);
     }
-  }
-  if (ranking.length < 5) {
-    ranking.push({ name, score });
+    return [...rankings];
+  } else {
+    return [...rankings, { name, score: parseScore(newScore) }];
   }
 };
