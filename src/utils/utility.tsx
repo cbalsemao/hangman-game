@@ -107,14 +107,20 @@ export const insertInRanking = (
   name: string,
   newScore: number,
   rankings: Ranking[]
-) => {
+): Ranking[] => {
   const targetRanking = rankings.find((ranking) => ranking.name === name);
+
   if (targetRanking) {
     if (!targetRanking.score || targetRanking.score < newScore) {
-      targetRanking.score = parseScore(newScore);
+      return [
+        ...rankings.filter((ranking) => ranking.name !== name),
+        { ...targetRanking, score: parseScore(newScore) },
+      ].sort((a, b) => b.score - a.score);
     }
-    return [...rankings];
+    return rankings;
   } else {
-    return [...rankings, { name, score: parseScore(newScore) }];
+    return [...rankings, { name, score: parseScore(newScore) }].sort(
+      (a, b) => b.score - a.score
+    );
   }
 };
