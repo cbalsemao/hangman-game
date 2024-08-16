@@ -8,7 +8,6 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  //min-width: 1000px;
 `;
 
 export const TitleWrapper = styled.div`
