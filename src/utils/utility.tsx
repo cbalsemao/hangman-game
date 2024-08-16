@@ -107,6 +107,7 @@ export const insertInRanking = (
   name: string,
   newScore: number,
   time: string,
+  movie: string,
   rankings: Ranking[]
 ): Ranking[] => {
   const targetRanking = rankings.find((ranking) => ranking.name === name);
@@ -120,9 +121,10 @@ export const insertInRanking = (
     }
     return rankings;
   } else {
-    return [...rankings, { name, score: parseScore(newScore), time }].sort(
-      (a, b) => b.score - a.score
-    );
+    return [
+      ...rankings,
+      { name, score: parseScore(newScore), time, movie },
+    ].sort((a, b) => b.score - a.score);
   }
 };
 

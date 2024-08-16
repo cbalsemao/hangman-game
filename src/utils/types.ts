@@ -11,4 +11,5 @@ export type Ranking = {
   score: number;
   name: string;
   time: string;
+  movie: string;
 };

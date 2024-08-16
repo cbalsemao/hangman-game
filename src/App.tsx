@@ -47,6 +47,7 @@ function App() {
         temporalName.current,
         tmpScorePlayer,
         tmpFinalTime,
+        secretWord,
         rankings
       );
       setRankings(updatedRankings);

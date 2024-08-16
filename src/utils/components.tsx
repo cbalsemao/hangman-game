@@ -21,7 +21,14 @@ export const ButtonHM = ({ title, label, onClick }: ButtonHMProps) => {
 
 export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
   return (
-    <Card sx={{ width: 200, height: 200, position: "absolute", right: 100 }}>
+    <Card
+      sx={{
+        width: 300,
+        height: 200,
+        position: "absolute",
+        right: 100,
+      }}
+    >
       <RankingBdWrapper>
         <Typography gutterBottom variant="h5" component="div">
           Ranking
@@ -30,7 +37,7 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
           <RankingList>
             {rankings.map((player, index) => (
               <li key={player + "" + index}>
-                {player.name} {player.score}
+                {player.name} {player.score} {player.time} {player.movie}
               </li>
             ))}
           </RankingList>
