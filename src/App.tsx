@@ -10,6 +10,7 @@ import {
 } from "./styles/styleguide";
 import {
   alphabet,
+  calculatePlayerTime,
   calculateScore,
   COUNTDOWN_END,
   COUNTDOWN_START,
@@ -35,14 +36,17 @@ function App() {
   const [wrongLetters, setWrongLetters] = useState<string[]>([]);
   const temporalName = useRef("");
   const [rankings, setRankings] = useState<Ranking[]>([]);
+  const [playerTime, setPlayerTime] = useState(new Date());
 
   const tmpScorePlayer = calculateScore(wrongLetters, guessedLetters);
+  const tmpFinalTime = calculatePlayerTime(playerTime, new Date());
 
   useEffect(() => {
     if (isGameEndedLose(gameStatus) || isGameEndedWin(gameStatus)) {
       const updatedRankings = insertInRanking(
         temporalName.current,
         tmpScorePlayer,
+        tmpFinalTime,
         rankings
       );
       setRankings(updatedRankings);
@@ -54,6 +58,9 @@ function App() {
     setSecretWord(newSecretWord.toLowerCase());
     setGuessedLetters([]);
     setGameStatus(GameStatus.InProgress);
+    const newDate = new Date();
+    setPlayerTime(newDate);
+    console.log(newDate);
   };
 
   const handleWordToGuess = useCallback(

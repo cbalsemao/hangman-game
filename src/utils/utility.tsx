@@ -106,6 +106,7 @@ export const calculateScore = (
 export const insertInRanking = (
   name: string,
   newScore: number,
+  time: string,
   rankings: Ranking[]
 ): Ranking[] => {
   const targetRanking = rankings.find((ranking) => ranking.name === name);
@@ -119,8 +120,22 @@ export const insertInRanking = (
     }
     return rankings;
   } else {
-    return [...rankings, { name, score: parseScore(newScore) }].sort(
+    return [...rankings, { name, score: parseScore(newScore), time }].sort(
       (a, b) => b.score - a.score
     );
   }
+};
+
+export const calculatePlayerTime = (time1: Date, time2: Date) => {
+  const diffInMilliseconds = time2.getTime() - time1.getTime();
+
+  const hours = Math.floor(diffInMilliseconds / (1000 * 60 * 60));
+  const minutes = Math.floor(
+    (diffInMilliseconds % (1000 * 60 * 60)) / (1000 * 60)
+  );
+  const seconds = Math.floor((diffInMilliseconds % (1000 * 60)) / 1000);
+
+  const time = `${hours}h ${minutes}m ${seconds}s`;
+
+  return time;
 };

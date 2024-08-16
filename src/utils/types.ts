@@ -10,4 +10,5 @@ export type Player = {
 export type Ranking = {
   score: number;
   name: string;
+  time: string;
 };
