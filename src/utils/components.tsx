@@ -1,4 +1,4 @@
-import { Button, Card, Typography } from "@mui/material";
+import { Button, Card, Grid, Typography } from "@mui/material";
 import { ButtonWrapper } from "../styles/styleguide";
 import { Ranking } from "./types";
 import { RankingBdWrapper, RankingList } from "../styles/styleguide";
@@ -35,11 +35,24 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
         </Typography>
         <Typography variant="body2" color="text.secondary">
           <RankingList>
-            {rankings.map((player, index) => (
-              <li key={player + "" + index}>
-                {player.name} {player.score} {player.time} {player.movie}
-              </li>
-            ))}
+            <Grid container direction="column">
+              {rankings.map((player, index) => (
+                <Grid container direction="row" key={player.name + "" + index}>
+                  <Grid item xs={3}>
+                    {player.name}
+                  </Grid>
+                  <Grid item xs={3}>
+                    {player.score}
+                  </Grid>
+                  <Grid item xs={3}>
+                    {player.time}
+                  </Grid>
+                  <Grid item xs={3}>
+                    {player.movie}
+                  </Grid>
+                </Grid>
+              ))}
+            </Grid>
           </RankingList>
         </Typography>
       </RankingBdWrapper>

@@ -34,7 +34,7 @@ function App() {
   const [secretWord, setSecretWord] = useState<string>("");
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [wrongLetters, setWrongLetters] = useState<string[]>([]);
-  const temporalName = useRef("");
+  const [temporalName, setTemporalName] = useState<string>("");
   const [rankings, setRankings] = useState<Ranking[]>([]);
   const [playerTime, setPlayerTime] = useState(new Date());
 
@@ -44,7 +44,7 @@ function App() {
   useEffect(() => {
     if (isGameEndedLose(gameStatus) || isGameEndedWin(gameStatus)) {
       const updatedRankings = insertInRanking(
-        temporalName.current,
+        temporalName,
         tmpScorePlayer,
         tmpFinalTime,
         secretWord,
@@ -55,13 +55,16 @@ function App() {
   }, [gameStatus]);
 
   const handleStart = () => {
+    if (!temporalName) {
+      alert("Enter a player name!");
+      return;
+    }
     const newSecretWord = selectRandomMovie();
     setSecretWord(newSecretWord.toLowerCase());
     setGuessedLetters([]);
     setGameStatus(GameStatus.InProgress);
     const newDate = new Date();
     setPlayerTime(newDate);
-    console.log(newDate);
   };
 
   const handleWordToGuess = useCallback(
@@ -117,10 +120,21 @@ function App() {
               id="outlined-basic"
               label="Type your name"
               variant="outlined"
-              required
-              onChange={(e) => (temporalName.current = e.target.value)}
+              onChange={(e) => setTemporalName(e.target.value)}
             />
+
             <ButtonHM label={"Start"} onClick={handleStart} />
+            {rankings.map((player) => (
+              <Button
+                key={player.name}
+                onClick={() => {
+                  setTemporalName(player.name);
+                  handleStart();
+                }}
+              >
+                {player.name}
+              </Button>
+            ))}
           </>
         )}
 
@@ -151,8 +165,7 @@ function App() {
               <Grid item>
                 <h1>{"MOVIE WAS: " + secretWord + " !!! 😊"}</h1>
                 <p>
-                  {temporalName.current}, your score is{" "}
-                  {parseScore(tmpScorePlayer)}
+                  {temporalName}, your score is {parseScore(tmpScorePlayer)}
                 </p>
               </Grid>
               <ButtonHM
@@ -174,8 +187,7 @@ function App() {
               <Grid item>
                 <h1>{"MOVIE WAS: " + secretWord + " !!! 😢"}</h1>
                 <p>
-                  {temporalName.current}, your score is{" "}
-                  {parseScore(tmpScorePlayer)}
+                  {temporalName}, your score is {parseScore(tmpScorePlayer)}
                 </p>
               </Grid>
               <ButtonHM
@@ -189,7 +201,7 @@ function App() {
               <ButtonHM
                 label={"Menu"}
                 onClick={() => {
-                  temporalName.current = "";
+                  setTemporalName("");
                   flushGame();
                 }}
               />

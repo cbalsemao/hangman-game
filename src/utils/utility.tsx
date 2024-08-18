@@ -128,16 +128,11 @@ export const insertInRanking = (
   }
 };
 
-export const calculatePlayerTime = (time1: Date, time2: Date) => {
-  const diffInMilliseconds = time2.getTime() - time1.getTime();
+export const calculatePlayerTime = (initialTime: Date, finalTime: Date) => {
+  const getMinutes = finalTime.getMinutes() - initialTime.getMinutes();
+  const getSeconds = finalTime.getSeconds() - initialTime.getSeconds();
 
-  const hours = Math.floor(diffInMilliseconds / (1000 * 60 * 60));
-  const minutes = Math.floor(
-    (diffInMilliseconds % (1000 * 60 * 60)) / (1000 * 60)
-  );
-  const seconds = Math.floor((diffInMilliseconds % (1000 * 60)) / 1000);
-
-  const time = `${hours}h ${minutes}m ${seconds}s`;
+  const time = `${getMinutes}m ${getSeconds}s`;
 
   return time;
 };
