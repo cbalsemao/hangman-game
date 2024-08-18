@@ -8,6 +8,7 @@ import img5 from "../assets/img-hangman6.png";
 import img6 from "../assets/img-hangman7.png";
 import { HangmanSteps, Movies, Ranking } from "./types";
 import { MOCK_MOVIES } from "./movies";
+import { get } from "http";
 
 const HANGMAN_IMAGE_SIZE = { width: "300", height: "300" };
 
@@ -129,8 +130,13 @@ export const insertInRanking = (
 };
 
 export const calculatePlayerTime = (initialTime: Date, finalTime: Date) => {
-  const getMinutes = finalTime.getMinutes() - initialTime.getMinutes();
-  const getSeconds = finalTime.getSeconds() - initialTime.getSeconds();
+  let getMinutes = finalTime.getMinutes() - initialTime.getMinutes();
+  let getSeconds = finalTime.getSeconds() - initialTime.getSeconds();
+
+  if (getSeconds < 0) {
+    getMinutes -= 1;
+    getSeconds = 60 + getSeconds;
+  }
 
   const time = `${getMinutes}m ${getSeconds}s`;
 

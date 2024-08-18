@@ -116,14 +116,25 @@ function App() {
       <>
         {isGameToStart(gameStatus) && (
           <>
-            <TextField
-              id="outlined-basic"
-              label="Type your name"
-              variant="outlined"
-              onChange={(e) => setTemporalName(e.target.value)}
-            />
-
-            <ButtonHM label={"Start"} onClick={handleStart} />
+            <Grid
+              container
+              spacing={1}
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Grid item>
+                <TextField
+                  id="outlined-basic"
+                  label="Type your name"
+                  variant="outlined"
+                  onChange={(e) => setTemporalName(e.target.value)}
+                />
+              </Grid>
+              <Grid item>
+                <ButtonHM label={"Start"} onClick={handleStart} />
+              </Grid>
+            </Grid>
             {rankings.map((player) => (
               <Button
                 key={player.name}
