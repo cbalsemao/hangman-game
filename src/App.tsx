@@ -63,8 +63,8 @@ function App() {
     setSecretWord(newSecretWord.toLowerCase());
     setGuessedLetters([]);
     setGameStatus(GameStatus.InProgress);
-    const newDate = new Date();
-    setPlayerTime(newDate);
+
+    setPlayerTime(new Date());
   };
 
   const handleWordToGuess = useCallback(

@@ -8,7 +8,6 @@ import img5 from "../assets/img-hangman6.png";
 import img6 from "../assets/img-hangman7.png";
 import { HangmanSteps, Movies, Ranking } from "./types";
 import { MOCK_MOVIES } from "./movies";
-import { get } from "http";
 
 const HANGMAN_IMAGE_SIZE = { width: "300", height: "300" };
 
@@ -107,24 +106,27 @@ export const calculateScore = (
 export const insertInRanking = (
   name: string,
   newScore: number,
-  time: string,
+  newTime: string,
   movie: string,
   rankings: Ranking[]
 ): Ranking[] => {
   const targetRanking = rankings.find((ranking) => ranking.name === name);
-
   if (targetRanking) {
-    if (!targetRanking.score || targetRanking.score < newScore) {
+    if (
+      !targetRanking.score ||
+      targetRanking.score < newScore ||
+      compareFormattedDates(targetRanking.time, newTime)
+    ) {
       return [
         ...rankings.filter((ranking) => ranking.name !== name),
-        { ...targetRanking, score: parseScore(newScore) },
+        { ...targetRanking, score: parseScore(newScore), time: newTime },
       ].sort((a, b) => b.score - a.score);
     }
     return rankings;
   } else {
     return [
       ...rankings,
-      { name, score: parseScore(newScore), time, movie },
+      { name, score: parseScore(newScore), time: newTime, movie },
     ].sort((a, b) => b.score - a.score);
   }
 };
@@ -141,4 +143,25 @@ export const calculatePlayerTime = (initialTime: Date, finalTime: Date) => {
   const time = `${getMinutes}m ${getSeconds}s`;
 
   return time;
+};
+
+const compareFormattedDates = (dateA: string, dateB: string) => {
+  const aMinutes = parseInt(dateA.split("m")[0]);
+  const aSeconds = parseInt(dateA.split("m")[1].split("s")[0]);
+
+  const bMinutes = parseInt(dateB.split("m")[0]);
+  const bSeconds = parseInt(dateB.split("m")[1].split("s")[0]);
+
+  const totalAseconds = aMinutes * 60 + aSeconds;
+  const totalBseconds = bMinutes * 60 + bSeconds;
+
+  if (totalAseconds < totalBseconds) {
+    return -1;
+  }
+
+  if (totalAseconds > totalBseconds) {
+    return 1;
+  }
+
+  return 0;
 };
