@@ -1,7 +1,7 @@
-import { Button, Card, Grid, Typography } from "@mui/material";
-import { ButtonWrapper } from "../styles/styleguide";
-import { Ranking } from "./types";
-import { RankingBdWrapper, RankingList } from "../styles/styleguide";
+import { Button, Card, Grid, Typography } from '@mui/material';
+import { ButtonWrapper } from '../styles/styleguide';
+import { Ranking } from './types';
+import { RankingBdWrapper, RankingList } from '../styles/styleguide';
 interface ButtonHMProps {
   title?: string;
   label: string;
@@ -25,7 +25,7 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
       sx={{
         width: 300,
         height: 200,
-        position: "absolute",
+        position: 'absolute',
         right: 100,
       }}
     >
@@ -37,7 +37,7 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
           <RankingList>
             <Grid container direction="column">
               {rankings.map((player, index) => (
-                <Grid container direction="row" key={player.name + "" + index}>
+                <Grid container direction="row" key={player.name + '' + index}>
                   <Grid item xs={3}>
                     {player.name}
                   </Grid>
@@ -57,5 +57,30 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
         </Typography>
       </RankingBdWrapper>
     </Card>
+  );
+};
+
+export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <Grid
+      container
+      sx={{
+        height: '100vh',
+        width: '100vw',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+      }}
+    >
+      {children}
+    </Grid>
+  );
+};
+
+export const Wrapper = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <Grid container sx={{}}>
+      {children}
+    </Grid>
   );
 };

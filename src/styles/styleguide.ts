@@ -1,14 +1,5 @@
-import styled from "@emotion/styled";
-import { CardContent, Grid } from "@mui/material";
-
-export const Wrapper = styled.div`
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-`;
+import styled from '@emotion/styled';
+import { CardContent, Grid } from '@mui/material';
 
 export const TitleWrapper = styled.div`
   display: flex;
@@ -53,7 +44,7 @@ export const RankingBdWrapper = styled(CardContent)`
   justify-content: center;
 `;
 
-export const RankingList = styled("ul")`
+export const RankingList = styled('ul')`
   list-style-type: none;
   padding: 0;
   margin: 0;

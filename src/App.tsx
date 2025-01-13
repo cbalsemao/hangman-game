@@ -1,13 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import Button from "@mui/material/Button";
-import { Grid, TextField } from "@mui/material";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import Button from '@mui/material/Button';
+import { Grid, TextField } from '@mui/material';
 import {
   AlphabetWrapper,
   GameEndWrapper,
   MovieWrapper,
   TitleWrapper,
-  Wrapper,
-} from "./styles/styleguide";
+} from './styles/styleguide';
 import {
   alphabet,
   calculatePlayerTime,
@@ -24,17 +23,17 @@ import {
   isGameToStart,
   parseScore,
   selectRandomMovie,
-} from "./utils/utility";
-import { HangmanSteps, Ranking } from "./utils/types";
-import { ButtonHM, RankingBoard } from "./utils/components";
+} from './utils/utility';
+import { HangmanSteps, Ranking } from './utils/types';
+import { AppWrapper, ButtonHM, RankingBoard } from './utils/components';
 
 function App() {
   const [countdown, setCountdown] = useState<HangmanSteps>(COUNTDOWN_START);
   const [gameStatus, setGameStatus] = useState<GameStatus>(GameStatus.ToStart);
-  const [secretWord, setSecretWord] = useState<string>("");
+  const [secretWord, setSecretWord] = useState<string>('');
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [wrongLetters, setWrongLetters] = useState<string[]>([]);
-  const [temporalName, setTemporalName] = useState<string>("");
+  const [temporalName, setTemporalName] = useState<string>('');
   const [rankings, setRankings] = useState<Ranking[]>([]);
   const [playerTime, setPlayerTime] = useState(new Date());
 
@@ -56,7 +55,7 @@ function App() {
 
   const handleStart = () => {
     if (!temporalName) {
-      alert("Enter a player name!");
+      alert('Enter a player name!');
       return;
     }
     const newSecretWord = selectRandomMovie();
@@ -93,11 +92,11 @@ function App() {
 
   const buttonColorHandler = (letter: string) => {
     if (guessedLetters.includes(letter)) {
-      return "success";
+      return 'success';
     } else if (wrongLetters.includes(letter)) {
-      return "error";
+      return 'error';
     } else {
-      return "primary";
+      return 'primary';
     }
   };
 
@@ -109,7 +108,7 @@ function App() {
   };
 
   return (
-    <Wrapper>
+    <AppWrapper>
       <TitleWrapper>
         <h1>Hangman Game</h1>
       </TitleWrapper>
@@ -132,7 +131,7 @@ function App() {
                 />
               </Grid>
               <Grid item>
-                <ButtonHM label={"Start"} onClick={handleStart} />
+                <ButtonHM label={'Start'} onClick={handleStart} />
               </Grid>
             </Grid>
             {rankings.map((player) => (
@@ -174,21 +173,21 @@ function App() {
           <>
             <GameEndWrapper container spacing={1}>
               <Grid item>
-                <h1>{"MOVIE WAS: " + secretWord + " !!! 😊"}</h1>
+                <h1>{'MOVIE WAS: ' + secretWord + ' !!! 😊'}</h1>
                 <p>
                   {temporalName}, your score is {parseScore(tmpScorePlayer)}
                 </p>
               </Grid>
               <ButtonHM
-                title={"You win!"}
-                label={"Play Again"}
+                title={'You win!'}
+                label={'Play Again'}
                 onClick={() => {
                   flushGame();
                   handleStart();
                 }}
               />
 
-              <ButtonHM label={"Menu"} onClick={() => flushGame()} />
+              <ButtonHM label={'Menu'} onClick={() => flushGame()} />
             </GameEndWrapper>
           </>
         )}
@@ -196,23 +195,23 @@ function App() {
           <>
             <GameEndWrapper container spacing={1}>
               <Grid item>
-                <h1>{"MOVIE WAS: " + secretWord + " !!! 😢"}</h1>
+                <h1>{'MOVIE WAS: ' + secretWord + ' !!! 😢'}</h1>
                 <p>
                   {temporalName}, your score is {parseScore(tmpScorePlayer)}
                 </p>
               </Grid>
               <ButtonHM
-                title={"You Lose!"}
-                label={"Play Again"}
+                title={'You Lose!'}
+                label={'Play Again'}
                 onClick={() => {
                   flushGame();
                   handleStart();
                 }}
               />
               <ButtonHM
-                label={"Menu"}
+                label={'Menu'}
                 onClick={() => {
-                  setTemporalName("");
+                  setTemporalName('');
                   flushGame();
                 }}
               />
@@ -224,7 +223,7 @@ function App() {
           <RankingBoard rankings={rankings} />
         ) : null}
       </>
-    </Wrapper>
+    </AppWrapper>
   );
 }
 
