@@ -92,11 +92,11 @@ function App() {
 
   const buttonColorHandler = (letter: string) => {
     if (guessedLetters.includes(letter)) {
-      return 'success';
+      return 'green';
     } else if (wrongLetters.includes(letter)) {
-      return 'error';
+      return 'red';
     } else {
-      return 'primary';
+      return 'purple';
     }
   };
 
@@ -160,7 +160,7 @@ function App() {
                   <Button
                     onClick={() => handleWordToGuess(letter)}
                     variant="contained"
-                    color={buttonColorHandler(letter)}
+                    sx={{ backgroundColor: buttonColorHandler(letter) }}
                   >
                     {letter}
                   </Button>

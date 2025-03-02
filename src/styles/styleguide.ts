@@ -24,7 +24,7 @@ export const MovieWrapper = styled.div`
 `;
 
 export const AlphabetWrapper = styled(Grid)`
-  background-color: lightblue;
+  background-color: white;
   width: 500px;
   flex-direction: row;
   border-radius: 42px;

@@ -12,7 +12,11 @@ export const ButtonHM = ({ title, label, onClick }: ButtonHMProps) => {
   return (
     <ButtonWrapper>
       <p>{title}</p>
-      <Button onClick={onClick} variant="contained" color="primary">
+      <Button
+        onClick={onClick}
+        variant="contained"
+        sx={{ color: 'black', backgroundColor: 'white' }}
+      >
         {label}
       </Button>
     </ButtonWrapper>
@@ -78,9 +82,5 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const Wrapper = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <Grid container sx={{}}>
-      {children}
-    </Grid>
-  );
+  return <Grid container>{children}</Grid>;
 };
