@@ -33,6 +33,7 @@ export const GlobalStyles = css`
   body {
     font-family: ${theme.typography.fontFamily};
     background-color: ${palette.white};
+    margin: 0;
   }
 `;
 

@@ -113,6 +113,7 @@ function App() {
   return (
     <AppWrapper>
       <Global styles={GlobalStyles} />
+
       <TitleWrapper>
         <h1>Hangman</h1>
       </TitleWrapper>
@@ -153,7 +154,15 @@ function App() {
         )}
 
         {isGameInProgress(gameStatus) && (
-          <>
+          <Grid
+            container
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              backgroundColor: palette.white,
+            }}
+          >
             <MovieWrapper>
               <p>{HANGMAN_IMAGE[countdown]}</p>
               <p>{getHiddenWord(secretWord, guessedLetters)}</p>
@@ -175,7 +184,7 @@ function App() {
                 </Grid>
               ))}
             </AlphabetWrapper>
-          </>
+          </Grid>
         )}
         {isGameEndedWin(gameStatus) && (
           <>

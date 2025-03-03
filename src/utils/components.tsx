@@ -75,6 +75,7 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         justifyContent: 'center',
         flexDirection: 'column',
         overflow: 'hidden',
+        backgroundColor: 'lightblue',
       }}
     >
       {children}
