@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Button from '@mui/material/Button';
 import { Grid, TextField } from '@mui/material';
+import { Global } from '@emotion/react';
 import {
   AlphabetWrapper,
   GameEndWrapper,
   MovieWrapper,
   TitleWrapper,
+  GlobalStyles,
 } from './styles/styleguide';
 import {
   alphabet,
@@ -96,7 +98,7 @@ function App() {
     } else if (wrongLetters.includes(letter)) {
       return 'red';
     } else {
-      return 'purple';
+      return '#0c0c0c';
     }
   };
 
@@ -109,8 +111,9 @@ function App() {
 
   return (
     <AppWrapper>
+      <Global styles={GlobalStyles} />
       <TitleWrapper>
-        <h1>Hangman Game</h1>
+        <h1>Hangman</h1>
       </TitleWrapper>
       <>
         {isGameToStart(gameStatus) && (
@@ -160,7 +163,11 @@ function App() {
                   <Button
                     onClick={() => handleWordToGuess(letter)}
                     variant="contained"
-                    sx={{ backgroundColor: buttonColorHandler(letter) }}
+                    sx={{
+                      backgroundColor: buttonColorHandler(letter),
+                      fontFamily: 'Courier New, Courier, monospace',
+                      fontWeight: 'bold',
+                    }}
                   >
                     {letter}
                   </Button>
