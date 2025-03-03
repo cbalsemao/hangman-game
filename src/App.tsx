@@ -8,6 +8,7 @@ import {
   MovieWrapper,
   TitleWrapper,
   GlobalStyles,
+  palette,
 } from './styles/styleguide';
 import {
   alphabet,
@@ -98,7 +99,7 @@ function App() {
     } else if (wrongLetters.includes(letter)) {
       return 'red';
     } else {
-      return '#0c0c0c';
+      return palette.black;
     }
   };
 

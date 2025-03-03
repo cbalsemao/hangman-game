@@ -1,6 +1,17 @@
 import styled from '@emotion/styled';
 import { CardContent, createTheme, Grid } from '@mui/material';
-import { Global, css } from '@emotion/react';
+import { css } from '@emotion/react';
+
+export const palette = {
+  white: '#fafafa',
+  darkWhite: '#F4CCE9',
+  black: '#0c0c0c',
+  burgundy: '#56021F',
+  gray: '#1e1e1e',
+  maroon: '#8D0B41',
+  red: '#C40233',
+  beige: '#b7ab98',
+};
 
 export const theme = createTheme({
   typography: {
@@ -21,6 +32,7 @@ export const theme = createTheme({
 export const GlobalStyles = css`
   body {
     font-family: ${theme.typography.fontFamily};
+    background-color: ${palette.white};
   }
 `;
 
@@ -28,7 +40,7 @@ export const TitleWrapper = styled.div({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-
+  color: palette.black,
   textTransform: 'uppercase',
   fontSize: '30px',
 
@@ -58,7 +70,6 @@ export const MovieWrapper = styled.div({
 });
 
 export const AlphabetWrapper = styled(Grid)({
-  // backgroundColor: 'white',
   width: '500px',
   flexDirection: 'row',
   borderRadius: '42px',

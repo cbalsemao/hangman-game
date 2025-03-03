@@ -2,11 +2,11 @@ import { Button, Card, Grid, Typography } from '@mui/material';
 import { ButtonWrapper } from '../styles/styleguide';
 import { Ranking } from './types';
 import { RankingBdWrapper, RankingList } from '../styles/styleguide';
-interface ButtonHMProps {
+type ButtonHMProps = {
   title?: string;
   label: string;
   onClick: () => void;
-}
+};
 
 export const ButtonHM = ({ title, label, onClick }: ButtonHMProps) => {
   return (
@@ -74,6 +74,7 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
+        overflow: 'hidden',
       }}
     >
       {children}
