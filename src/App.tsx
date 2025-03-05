@@ -8,6 +8,7 @@ import {
   TitleWrapper,
   GlobalStyles,
   palette,
+  theme,
 } from './styles/styleguide';
 import {
   alphabet,
@@ -112,7 +113,6 @@ function App() {
   return (
     <AppWrapper>
       <Global styles={GlobalStyles} />
-
       <>
         {isGameToStart(gameStatus) && (
           <Grid
@@ -122,7 +122,6 @@ function App() {
             justifyContent="center"
             alignItems="center"
             sx={{
-              minHeight: '100vh',
               textAlign: 'center',
               background: 'linear-gradient(to right, #ff7e5f, #feb47b)',
             }}
@@ -133,6 +132,10 @@ function App() {
                 component="h1"
                 gutterBottom
                 align="center"
+                sx={{
+                  fontFamily: theme.typography.fontFamily,
+                  fontWeight: 'bold',
+                }}
               >
                 Hangman
               </Typography>
@@ -141,9 +144,28 @@ function App() {
               <TextField
                 id="outlined-basic"
                 label="Type your name"
-                variant="outlined"
                 onChange={(e) => setTemporalName(e.target.value)}
-                sx={{ backgroundColor: palette.white, borderRadius: 10 }}
+                sx={{
+                  backgroundColor: palette.white,
+                  borderRadius: 10,
+                  '& .MuiOutlinedInput-root': {
+                    '&.Mui-focused fieldset': {
+                      borderRadius: 10,
+                      borderColor: palette.darkWhite,
+                    },
+                    '&:hover fieldset': {
+                      borderRadius: 10,
+                      borderColor: palette.darkWhite,
+                    },
+                    '& fieldset': {
+                      borderRadius: 10,
+                      borderColor: palette.darkWhite,
+                    },
+                    '& .MuiInputLabel-root': {
+                      color: palette.darkWhite,
+                    },
+                  },
+                }}
               />
             </Grid>
             <Grid item>
