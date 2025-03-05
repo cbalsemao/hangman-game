@@ -41,6 +41,7 @@ export const TitleWrapper = styled.div({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+
   color: palette.darkWhite,
   textTransform: 'uppercase',
   fontSize: '30px',

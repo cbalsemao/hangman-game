@@ -119,10 +119,11 @@ function App() {
           <>
             <Grid
               container
-              spacing={1}
-              direction="row"
+              spacing={2}
+              direction="column"
               justifyContent="center"
               alignItems="center"
+              sx={{ minHeight: '100vh', textAlign: 'center' }}
             >
               <TitleWrapper>
                 <h1>Hangman</h1>
@@ -133,23 +134,28 @@ function App() {
                   label="Type your name"
                   variant="outlined"
                   onChange={(e) => setTemporalName(e.target.value)}
+                  sx={{ backgroundColor: palette.white, borderRadius: 10 }}
                 />
               </Grid>
               <Grid item>
                 <ButtonHM label={'Start'} onClick={handleStart} />
               </Grid>
+              <Grid item sx={{ color: palette.darkWhite }}>
+                <h2>Previous Players</h2>
+                {rankings.map((player) => (
+                  <Button
+                    key={player.name}
+                    onClick={() => {
+                      setTemporalName(player.name);
+                      handleStart();
+                    }}
+                    sx={{ margin: 1 }}
+                  >
+                    {player.name}
+                  </Button>
+                ))}
+              </Grid>
             </Grid>
-            {rankings.map((player) => (
-              <Button
-                key={player.name}
-                onClick={() => {
-                  setTemporalName(player.name);
-                  handleStart();
-                }}
-              >
-                {player.name}
-              </Button>
-            ))}
           </>
         )}
 
