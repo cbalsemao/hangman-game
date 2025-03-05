@@ -122,6 +122,8 @@ function App() {
             justifyContent="center"
             alignItems="center"
             sx={{
+              width: '100%',
+              height: '100%',
               textAlign: 'center',
               background: 'linear-gradient(to right, #ff7e5f, #feb47b)',
             }}
@@ -145,10 +147,10 @@ function App() {
                 id="outlined-basic"
                 label="Type your name"
                 onChange={(e) => setTemporalName(e.target.value)}
-                sx={{
-                  backgroundColor: palette.white,
-                  borderRadius: 10,
-                  '& .MuiOutlinedInput-root': {
+                InputProps={{
+                  sx: {
+                    backgroundColor: palette.white,
+                    borderRadius: 10,
                     '&.Mui-focused fieldset': {
                       borderRadius: 10,
                       borderColor: palette.darkWhite,
@@ -161,9 +163,11 @@ function App() {
                       borderRadius: 10,
                       borderColor: palette.darkWhite,
                     },
-                    '& .MuiInputLabel-root': {
-                      color: palette.darkWhite,
-                    },
+                  },
+                }}
+                InputLabelProps={{
+                  sx: {
+                    color: palette.darkWhite,
                   },
                 }}
               />

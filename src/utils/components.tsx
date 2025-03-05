@@ -74,7 +74,7 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-        overflow: 'hidden',
+
         backgroundColor: palette.black,
         paddingRight: { xs: 2, sm: 3, md: 4, lg: 40 },
         paddingLeft: { xs: 2, sm: 3, md: 4, lg: 40 },
