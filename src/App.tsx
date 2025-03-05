@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import Button from '@mui/material/Button';
-import { Grid, TextField } from '@mui/material';
+import { useCallback, useEffect, useState } from 'react';
+import { Button, Grid, TextField, Typography, Paper, Box } from '@mui/material';
 import { Global } from '@emotion/react';
 import {
   AlphabetWrapper,
@@ -116,65 +115,89 @@ function App() {
 
       <>
         {isGameToStart(gameStatus) && (
-          <>
-            <Grid
-              container
-              spacing={2}
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              sx={{ minHeight: '100vh', textAlign: 'center' }}
-            >
-              <TitleWrapper>
-                <h1>Hangman</h1>
-              </TitleWrapper>
-              <Grid item>
-                <TextField
-                  id="outlined-basic"
-                  label="Type your name"
-                  variant="outlined"
-                  onChange={(e) => setTemporalName(e.target.value)}
-                  sx={{ backgroundColor: palette.white, borderRadius: 10 }}
-                />
-              </Grid>
-              <Grid item>
-                <ButtonHM label={'Start'} onClick={handleStart} />
-              </Grid>
-              <Grid item sx={{ color: palette.darkWhite }}>
-                <h2>Previous Players</h2>
-                {rankings.map((player) => (
-                  <Button
-                    key={player.name}
-                    onClick={() => {
-                      setTemporalName(player.name);
-                      handleStart();
-                    }}
-                    sx={{ margin: 1 }}
-                  >
-                    {player.name}
-                  </Button>
-                ))}
-              </Grid>
+          <Grid
+            container
+            spacing={2}
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            sx={{
+              minHeight: '100vh',
+              textAlign: 'center',
+              background: 'linear-gradient(to right, #ff7e5f, #feb47b)',
+            }}
+          >
+            <TitleWrapper>
+              <Typography
+                variant="h2"
+                component="h1"
+                gutterBottom
+                align="center"
+              >
+                Hangman
+              </Typography>
+            </TitleWrapper>
+            <Grid item>
+              <TextField
+                id="outlined-basic"
+                label="Type your name"
+                variant="outlined"
+                onChange={(e) => setTemporalName(e.target.value)}
+                sx={{ backgroundColor: palette.white, borderRadius: 10 }}
+              />
             </Grid>
-          </>
+            <Grid item>
+              <ButtonHM label={'Start'} onClick={handleStart} />
+            </Grid>
+            <Grid item sx={{ color: palette.darkWhite }}>
+              <Typography variant="h5" component="h2" gutterBottom>
+                Previous Players
+              </Typography>
+              {rankings.map((player) => (
+                <Button
+                  key={player.name}
+                  onClick={() => {
+                    setTemporalName(player.name);
+                    handleStart();
+                  }}
+                >
+                  {player.name}
+                </Button>
+              ))}
+            </Grid>
+          </Grid>
         )}
 
         {isGameInProgress(gameStatus) && (
           <Grid
             container
+            spacing={2}
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              backgroundColor: palette.white,
+              minHeight: '100vh',
+              textAlign: 'center',
+              background: 'linear-gradient(to right, #ff7e5f, #feb47b)',
             }}
           >
             <TitleWrapper>
-              <h1>Hangman</h1>
+              <Typography
+                variant="h2"
+                component="h1"
+                gutterBottom
+                align="center"
+              >
+                Hangman
+              </Typography>
             </TitleWrapper>
             <MovieWrapper>
-              <p>{HANGMAN_IMAGE[countdown]}</p>
-              <p>{getHiddenWord(secretWord, guessedLetters)}</p>
+              <Typography variant="h4" component="p">
+                {HANGMAN_IMAGE[countdown]}
+              </Typography>
+              <Typography variant="h5" component="p">
+                {getHiddenWord(secretWord, guessedLetters)}
+              </Typography>
             </MovieWrapper>
             <AlphabetWrapper container spacing={1}>
               {alphabet.map((letter) => (
@@ -196,58 +219,94 @@ function App() {
           </Grid>
         )}
         {isGameEndedWin(gameStatus) && (
-          <>
-            <GameEndWrapper container spacing={1}>
-              <Grid item sx={{ color: palette.darkWhite }}>
-                <h1>{'MOVIE WAS: ' + secretWord + ' !!! 😊'}</h1>
-                <p>
-                  {temporalName}, your score is {parseScore(tmpScorePlayer)}
-                </p>
-              </Grid>
-              <ButtonHM
-                title={'You win!'}
-                label={'Play Again'}
-                onClick={() => {
-                  flushGame();
-                  handleStart();
-                }}
-              />
-
-              <ButtonHM label={'Menu'} onClick={() => flushGame()} />
-            </GameEndWrapper>
-          </>
+          <Grid
+            container
+            spacing={2}
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            sx={{
+              minHeight: '100vh',
+              textAlign: 'center',
+              background: 'linear-gradient(to right, #ff7e5f, #feb47b)',
+            }}
+          >
+            <Paper
+              elevation={3}
+              sx={{ padding: 3, textAlign: 'center', margin: 3 }}
+            >
+              <GameEndWrapper container spacing={1}>
+                <Grid item sx={{ color: palette.darkWhite }}>
+                  <Typography variant="h4" component="h1" align="center">
+                    {'MOVIE WAS: ' + secretWord + ' !!! 😊'}
+                  </Typography>
+                  <Typography variant="h6" component="p" align="center">
+                    {temporalName}, your score is {parseScore(tmpScorePlayer)}
+                  </Typography>
+                </Grid>
+                <ButtonHM
+                  title={'You win!'}
+                  label={'Play Again'}
+                  onClick={() => {
+                    flushGame();
+                    handleStart();
+                  }}
+                />
+                <ButtonHM label={'Menu'} onClick={() => flushGame()} />
+              </GameEndWrapper>
+            </Paper>
+          </Grid>
         )}
         {isGameEndedLose(gameStatus) && (
-          <>
-            <GameEndWrapper container spacing={1}>
-              <Grid item sx={{ color: palette.darkWhite }}>
-                <h1>{'MOVIE WAS: ' + secretWord + ' !!! 😢'}</h1>
-                <p>
-                  {temporalName}, your score is {parseScore(tmpScorePlayer)}
-                </p>
-              </Grid>
-              <ButtonHM
-                title={'You Lose!'}
-                label={'Play Again'}
-                onClick={() => {
-                  flushGame();
-                  handleStart();
-                }}
-              />
-              <ButtonHM
-                label={'Menu'}
-                onClick={() => {
-                  setTemporalName('');
-                  flushGame();
-                }}
-              />
-            </GameEndWrapper>
-          </>
+          <Grid
+            container
+            spacing={2}
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            sx={{
+              height: '100vh',
+              width: '100vh',
+              textAlign: 'center',
+              background: 'linear-gradient(to right, #ff7e5f, #feb47b)',
+            }}
+          >
+            <Paper
+              elevation={3}
+              sx={{ padding: 3, textAlign: 'center', margin: 3 }}
+            >
+              <GameEndWrapper container spacing={1}>
+                <Grid item sx={{ color: palette.darkWhite }}>
+                  <Typography variant="h4" component="h1" align="center">
+                    {'MOVIE WAS: ' + secretWord + ' !!! 😢'}
+                  </Typography>
+                  <Typography variant="h6" component="p" align="center">
+                    {temporalName}, your score is {parseScore(tmpScorePlayer)}
+                  </Typography>
+                </Grid>
+                <ButtonHM
+                  title={'You Lose!'}
+                  label={'Play Again'}
+                  onClick={() => {
+                    flushGame();
+                    handleStart();
+                  }}
+                />
+                <ButtonHM
+                  label={'Menu'}
+                  onClick={() => {
+                    setTemporalName('');
+                    flushGame();
+                  }}
+                />
+              </GameEndWrapper>
+            </Paper>
+          </Grid>
         )}
 
-        {isGameEndedLose(gameStatus) || isGameEndedWin(gameStatus) ? (
+        {(isGameEndedLose(gameStatus) || isGameEndedWin(gameStatus)) && (
           <RankingBoard rankings={rankings} />
-        ) : null}
+        )}
       </>
     </AppWrapper>
   );
