@@ -114,9 +114,6 @@ function App() {
     <AppWrapper>
       <Global styles={GlobalStyles} />
 
-      <TitleWrapper>
-        <h1>Hangman</h1>
-      </TitleWrapper>
       <>
         {isGameToStart(gameStatus) && (
           <>
@@ -127,6 +124,9 @@ function App() {
               justifyContent="center"
               alignItems="center"
             >
+              <TitleWrapper>
+                <h1>Hangman</h1>
+              </TitleWrapper>
               <Grid item>
                 <TextField
                   id="outlined-basic"
@@ -163,6 +163,9 @@ function App() {
               backgroundColor: palette.white,
             }}
           >
+            <TitleWrapper>
+              <h1>Hangman</h1>
+            </TitleWrapper>
             <MovieWrapper>
               <p>{HANGMAN_IMAGE[countdown]}</p>
               <p>{getHiddenWord(secretWord, guessedLetters)}</p>
@@ -189,7 +192,7 @@ function App() {
         {isGameEndedWin(gameStatus) && (
           <>
             <GameEndWrapper container spacing={1}>
-              <Grid item>
+              <Grid item sx={{ color: palette.darkWhite }}>
                 <h1>{'MOVIE WAS: ' + secretWord + ' !!! 😊'}</h1>
                 <p>
                   {temporalName}, your score is {parseScore(tmpScorePlayer)}
@@ -211,7 +214,7 @@ function App() {
         {isGameEndedLose(gameStatus) && (
           <>
             <GameEndWrapper container spacing={1}>
-              <Grid item>
+              <Grid item sx={{ color: palette.darkWhite }}>
                 <h1>{'MOVIE WAS: ' + secretWord + ' !!! 😢'}</h1>
                 <p>
                   {temporalName}, your score is {parseScore(tmpScorePlayer)}

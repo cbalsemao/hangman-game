@@ -1,5 +1,5 @@
 import { Button, Card, Grid, Typography } from '@mui/material';
-import { ButtonWrapper } from '../styles/styleguide';
+import { ButtonWrapper, palette } from '../styles/styleguide';
 import { Ranking } from './types';
 import { RankingBdWrapper, RankingList } from '../styles/styleguide';
 type ButtonHMProps = {
@@ -75,7 +75,9 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         justifyContent: 'center',
         flexDirection: 'column',
         overflow: 'hidden',
-        backgroundColor: 'lightblue',
+        backgroundColor: palette.black,
+        paddingRight: { xs: 2, sm: 3, md: 4, lg: 40 },
+        paddingLeft: { xs: 2, sm: 3, md: 4, lg: 40 },
       }}
     >
       {children}
