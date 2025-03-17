@@ -1,15 +1,15 @@
-import { ReactElement } from "react";
-import img0 from "../assets/img-hangman1.png";
-import img1 from "../assets/img-hangman2.png";
-import img2 from "../assets/img-hangman3.png";
-import img3 from "../assets/img-hangman4.png";
-import img4 from "../assets/img-hangman5.png";
-import img5 from "../assets/img-hangman6.png";
-import img6 from "../assets/img-hangman7.png";
-import { HangmanSteps, Movies, Ranking } from "./types";
-import { MOCK_MOVIES } from "./movies";
+import { ReactElement } from 'react';
+import img0 from '../assets/img-hangman1.png';
+import img1 from '../assets/img-hangman2.png';
+import img2 from '../assets/img-hangman3.png';
+import img3 from '../assets/img-hangman4.png';
+import img4 from '../assets/img-hangman5.png';
+import img5 from '../assets/img-hangman6.png';
+import img6 from '../assets/img-hangman7.png';
+import { HangmanSteps, Movies, Ranking } from './types';
+import { MOCK_MOVIES } from './movies';
 
-const HANGMAN_IMAGE_SIZE = { width: "300", height: "300" };
+const HANGMAN_IMAGE_SIZE = { width: '300', height: '300' };
 
 export const HANGMAN_IMAGE: Record<HangmanSteps, ReactElement> = {
   0: <img src={img6} {...HANGMAN_IMAGE_SIZE} />,
@@ -26,39 +26,39 @@ export const COUNTDOWN_START = 7;
 export const COUNTDOWN_END = 0;
 
 export const alphabet: string[] = [
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
+  'a',
+  'b',
+  'c',
+  'd',
+  'e',
+  'f',
+  'g',
+  'h',
+  'i',
+  'j',
+  'k',
+  'l',
+  'm',
+  'n',
+  'o',
+  'p',
+  'q',
+  'r',
+  's',
+  't',
+  'u',
+  'v',
+  'w',
+  'x',
+  'y',
+  'z',
 ];
 
 export enum GameStatus {
-  ToStart = "ToStart",
-  InProgress = "InProgress",
-  Win = "Win",
-  Lose = "Lose",
+  ToStart = 'ToStart',
+  InProgress = 'InProgress',
+  Win = 'Win',
+  Lose = 'Lose',
 }
 
 export const selectRandomMovie = (movies?: Movies) => {
@@ -69,11 +69,11 @@ export const selectRandomMovie = (movies?: Movies) => {
 
 export const getHiddenWord = (word: string, guessedLetters: string[]) => {
   return word
-    .split("")
+    .split('')
     .map((letter) =>
-      letter === " " ? " " : guessedLetters.includes(letter) ? letter : "-"
+      letter === ' ' ? ' ' : guessedLetters.includes(letter) ? letter : ' _ '
     )
-    .join("");
+    .join('');
 };
 
 export const isGameToStart = (gameStatus: GameStatus) => {
@@ -146,11 +146,11 @@ export const calculatePlayerTime = (initialTime: Date, finalTime: Date) => {
 };
 
 const compareFormattedDates = (dateA: string, dateB: string) => {
-  const aMinutes = parseInt(dateA.split("m")[0]);
-  const aSeconds = parseInt(dateA.split("m")[1].split("s")[0]);
+  const aMinutes = parseInt(dateA.split('m')[0]);
+  const aSeconds = parseInt(dateA.split('m')[1].split('s')[0]);
 
-  const bMinutes = parseInt(dateB.split("m")[0]);
-  const bSeconds = parseInt(dateB.split("m")[1].split("s")[0]);
+  const bMinutes = parseInt(dateB.split('m')[0]);
+  const bSeconds = parseInt(dateB.split('m')[1].split('s')[0]);
 
   const totalAseconds = aMinutes * 60 + aSeconds;
   const totalBseconds = bMinutes * 60 + bSeconds;

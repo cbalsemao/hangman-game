@@ -137,12 +137,16 @@ function App() {
                 sx={{
                   fontFamily: theme.typography.fontFamily,
                   fontWeight: 'bold',
+                  fontSize: { xs: '2rem', sm: '3rem', md: '4rem', lg: '8rem' },
                 }}
               >
                 Hangman
               </Typography>
             </TitleWrapper>
-            <Grid item>
+            <Grid
+              item
+              sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+            >
               <TextField
                 id="outlined-basic"
                 label="Type your name"
@@ -197,7 +201,6 @@ function App() {
         {isGameInProgress(gameStatus) && (
           <Grid
             container
-            spacing={2}
             direction="column"
             justifyContent="center"
             alignItems="center"
@@ -213,35 +216,63 @@ function App() {
                 component="h1"
                 gutterBottom
                 align="center"
+                sx={{
+                  fontFamily: theme.typography.fontFamily,
+                  fontWeight: 'bold',
+                  fontSize: { xs: '2rem', sm: '3rem', md: '4rem', lg: '5rem' },
+                }}
               >
                 Hangman
               </Typography>
             </TitleWrapper>
-            <MovieWrapper>
-              <Typography variant="h4" component="p">
-                {HANGMAN_IMAGE[countdown]}
-              </Typography>
-              <Typography variant="h5" component="p">
-                {getHiddenWord(secretWord, guessedLetters)}
-              </Typography>
-            </MovieWrapper>
-            <AlphabetWrapper container spacing={1}>
-              {alphabet.map((letter) => (
-                <Grid item key={letter} xs={4} sm={2}>
-                  <Button
-                    onClick={() => handleWordToGuess(letter)}
-                    variant="contained"
-                    sx={{
-                      backgroundColor: buttonColorHandler(letter),
-                      fontFamily: 'Courier New, Courier, monospace',
-                      fontWeight: 'bold',
-                    }}
-                  >
-                    {letter}
-                  </Button>
-                </Grid>
-              ))}
-            </AlphabetWrapper>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Box>
+                <Typography variant="h4" component="p">
+                  {HANGMAN_IMAGE[countdown]}
+                </Typography>
+              </Box>
+              <MovieWrapper>
+                <Typography
+                  variant="h4"
+                  component="p"
+                  sx={{
+                    fontSize: {
+                      xs: '1.5rem',
+                      sm: '2rem',
+                      md: '2.5rem',
+                      lg: '3rem',
+                    },
+                    paddingBottom: 4,
+                  }}
+                >
+                  {getHiddenWord(secretWord, guessedLetters)}
+                </Typography>
+                <AlphabetWrapper container spacing={1}>
+                  {alphabet.map((letter) => (
+                    <Grid item key={letter} xs={2} sm={2}>
+                      <Button
+                        onClick={() => handleWordToGuess(letter)}
+                        variant="contained"
+                        sx={{
+                          backgroundColor: buttonColorHandler(letter),
+                          fontFamily: 'Courier New, Courier, monospace',
+                          fontWeight: 'bold',
+                        }}
+                      >
+                        {letter}
+                      </Button>
+                    </Grid>
+                  ))}
+                </AlphabetWrapper>
+              </MovieWrapper>
+            </Box>
           </Grid>
         )}
         {isGameEndedWin(gameStatus) && (

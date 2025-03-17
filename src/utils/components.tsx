@@ -76,8 +76,8 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         flexDirection: 'column',
 
         backgroundColor: palette.black,
-        paddingRight: { xs: 2, sm: 3, md: 4, lg: 40 },
-        paddingLeft: { xs: 2, sm: 3, md: 4, lg: 40 },
+        paddingRight: { xs: 2, sm: 3, md: 4, lg: 20 },
+        paddingLeft: { xs: 2, sm: 3, md: 4, lg: 20 },
       }}
     >
       {children}
