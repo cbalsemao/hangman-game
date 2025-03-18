@@ -42,7 +42,7 @@ export const TitleWrapper = styled.div({
   justifyContent: 'center',
   alignItems: 'center',
   fontFamily: theme.typography.fontFamily,
-  color: palette.darkWhite,
+  color: palette.black,
   textTransform: 'uppercase',
   fontSize: '30px',
 
@@ -63,19 +63,24 @@ export const ButtonWrapper = styled.div({
   flexDirection: 'column',
 });
 
-export const MovieWrapper = styled.div({
+export const MovieWrapper = styled(Grid)({
   display: 'flex',
   justifyContent: 'space-around',
   alignItems: 'center',
-  width: '40%',
+
   fontSize: '30px',
+  flexDirection: 'column',
+
+  '@media (max-width: 1000px)': {
+    flexDirection: 'column',
+  },
 });
 
 export const AlphabetWrapper = styled(Grid)({
   width: '500px',
   flexDirection: 'row',
   borderRadius: '42px',
-  padding: '25px',
+
   minWidth: '500px',
 });
 

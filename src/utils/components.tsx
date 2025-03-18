@@ -1,5 +1,5 @@
 import { Button, Card, Grid, Typography } from '@mui/material';
-import { ButtonWrapper, palette } from '../styles/styleguide';
+import { ButtonWrapper, palette, theme } from '../styles/styleguide';
 import { Ranking } from './types';
 import { RankingBdWrapper, RankingList } from '../styles/styleguide';
 type ButtonHMProps = {
@@ -15,7 +15,20 @@ export const ButtonHM = ({ title, label, onClick }: ButtonHMProps) => {
       <Button
         onClick={onClick}
         variant="contained"
-        sx={{ color: 'black', backgroundColor: 'white' }}
+        sx={{
+          color: 'black',
+          backgroundColor: palette.darkWhite,
+          fontFamily: theme.typography.fontFamily,
+          fontWeight: 'bold',
+          fontSize: '20px',
+          transition: 'transform 0.3s ease, background-color 0.3s ease',
+
+          '&:hover': {
+            backgroundColor: palette.black,
+            transform: 'scale(1.1)',
+            color: palette.white,
+          },
+        }}
       >
         {label}
       </Button>
@@ -76,8 +89,8 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         flexDirection: 'column',
 
         backgroundColor: palette.black,
-        paddingRight: { xs: 2, sm: 3, md: 4, lg: 40 },
-        paddingLeft: { xs: 2, sm: 3, md: 4, lg: 40 },
+        paddingRight: { xs: 2, sm: 3, md: 4, lg: 20 },
+        paddingLeft: { xs: 2, sm: 3, md: 4, lg: 20 },
       }}
     >
       {children}
