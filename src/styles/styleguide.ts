@@ -63,24 +63,19 @@ export const ButtonWrapper = styled.div({
   flexDirection: 'column',
 });
 
-export const MovieWrapper = styled(Grid)({
+export const MovieWrapper = styled.div({
   display: 'flex',
   justifyContent: 'space-around',
   alignItems: 'center',
-
+  width: '40%',
   fontSize: '30px',
-  flexDirection: 'column',
-
-  '@media (max-width: 1000px)': {
-    flexDirection: 'column',
-  },
 });
 
 export const AlphabetWrapper = styled(Grid)({
   width: '500px',
   flexDirection: 'row',
   borderRadius: '42px',
-
+  padding: '25px',
   minWidth: '500px',
 });
 
