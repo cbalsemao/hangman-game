@@ -77,11 +77,11 @@ export const MovieWrapper = styled(Grid)({
 });
 
 export const AlphabetWrapper = styled(Grid)({
-  width: '500px',
   flexDirection: 'row',
   borderRadius: '42px',
-
-  minWidth: '500px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 });
 
 export const GameEndWrapper = styled(Grid)({
