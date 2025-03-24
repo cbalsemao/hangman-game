@@ -76,7 +76,7 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
                   padding: 1,
                   backgroundColor:
                     index === 0
-                      ? 'green'
+                      ? palette.burgundy
                       : index === 1
                       ? palette.darkWhite
                       : index === 2
