@@ -78,16 +78,19 @@ export const MovieWrapper = styled(Grid)({
 
 export const AlphabetWrapper = styled(Grid)({
   flexDirection: 'row',
-  borderRadius: '42px',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  maxWidth: '70%',
+  margin: '0 auto',
 });
 
 export const GameEndWrapper = styled(Grid)({
   display: 'flex',
+  flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  gap: '16px',
 });
 
 export const RankingBdWrapper = styled(CardContent)`

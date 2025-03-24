@@ -37,41 +37,107 @@ export const ButtonHM = ({ title, label, onClick }: ButtonHMProps) => {
 };
 
 export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
+  const winners = rankings
+    .filter((player) => player.score > 0)
+    .sort((a, b) => b.score - a.score);
+
   return (
     <Card
       sx={{
-        width: 300,
-        height: 200,
-        position: 'absolute',
-        right: 100,
+        width: 400,
+        padding: 2,
+        backgroundColor: palette.darkWhite,
+        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
+        borderRadius: '10px',
       }}
     >
       <RankingBdWrapper>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography
+          gutterBottom
+          variant="h5"
+          component="div"
+          sx={{
+            textAlign: 'center',
+            fontWeight: 'bold',
+            color: palette.black,
+            marginBottom: 2,
+          }}
+        >
           Ranking
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          <RankingList>
-            <Grid container direction="column">
-              {rankings.map((player, index) => (
-                <Grid container direction="row" key={player.name + '' + index}>
-                  <Grid item xs={3}>
-                    {player.name}
-                  </Grid>
-                  <Grid item xs={3}>
-                    {player.score}
-                  </Grid>
-                  <Grid item xs={3}>
-                    {player.time}
-                  </Grid>
-                  <Grid item xs={3}>
-                    {player.movie}
-                  </Grid>
+        <RankingList>
+          <Grid container direction="column" spacing={1}>
+            {winners.map((player, index) => (
+              <Grid
+                container
+                direction="row"
+                key={player.name + '' + index}
+                sx={{
+                  padding: 1,
+                  backgroundColor:
+                    index === 0
+                      ? 'green'
+                      : index === 1
+                      ? palette.darkWhite
+                      : index === 2
+                      ? palette.darkWhite
+                      : index % 2 === 0
+                      ? palette.darkWhite
+                      : palette.white,
+                  borderRadius: '5px',
+                  alignItems: 'center',
+                }}
+              >
+                <Grid
+                  item
+                  xs={2}
+                  sx={{
+                    textAlign: 'center',
+                    fontWeight: 'bold',
+                    fontSize: '18px',
+                    color: palette.black,
+                  }}
+                >
+                  #{index + 1}
                 </Grid>
-              ))}
-            </Grid>
-          </RankingList>
-        </Typography>
+                <Grid
+                  item
+                  xs={4}
+                  sx={{
+                    textAlign: 'left',
+                    fontWeight: 'bold',
+                    fontSize: '16px',
+                    color: palette.black,
+                  }}
+                >
+                  {player.name}
+                </Grid>
+                <Grid
+                  item
+                  xs={3}
+                  sx={{
+                    textAlign: 'center',
+                    fontSize: '14px',
+                    color: palette.black,
+                  }}
+                >
+                  {player.score} pts
+                </Grid>
+                <Grid
+                  item
+                  xs={3}
+                  sx={{
+                    textAlign: 'center',
+                    fontSize: '14px',
+                    color: palette.black,
+                  }}
+                >
+                  {player.time}s
+                </Grid>
+              </Grid>
+            ))}
+          </Grid>
+        </RankingList>
       </RankingBdWrapper>
     </Card>
   );

@@ -39,9 +39,26 @@ function App() {
   const [temporalName, setTemporalName] = useState<string>('');
   const [rankings, setRankings] = useState<Ranking[]>([]);
   const [playerTime, setPlayerTime] = useState(new Date());
+  const [playersList, setPlayersList] = useState<string[]>([]); // Estado para los jugadores anteriores
 
   const tmpScorePlayer = calculateScore(wrongLetters, guessedLetters);
   const tmpFinalTime = calculatePlayerTime(playerTime, new Date());
+
+  useEffect(() => {
+    const storedRankings = JSON.parse(localStorage.getItem('rankings') || '[]');
+    setRankings(storedRankings);
+
+    const storedPlayers = JSON.parse(
+      localStorage.getItem('playersList') || '[]'
+    );
+    setPlayersList(storedPlayers);
+  }, []);
+
+  // Guardar los rankings y la lista de jugadores en localStorage
+  useEffect(() => {
+    localStorage.setItem('rankings', JSON.stringify(rankings));
+    localStorage.setItem('playersList', JSON.stringify(playersList)); // Guardar la lista de jugadores
+  }, [rankings, playersList]);
 
   useEffect(() => {
     if (isGameEndedLose(gameStatus) || isGameEndedWin(gameStatus)) {
@@ -53,6 +70,12 @@ function App() {
         rankings
       );
       setRankings(updatedRankings);
+
+      // Agregar el nombre del jugador a la lista si no está ya presente
+      if (!playersList.includes(temporalName)) {
+        const updatedPlayersList = [...playersList, temporalName];
+        setPlayersList(updatedPlayersList);
+      }
     }
   }, [gameStatus]);
 
@@ -64,8 +87,10 @@ function App() {
     const newSecretWord = selectRandomMovie();
     setSecretWord(newSecretWord.toLowerCase());
     setGuessedLetters([]);
+    setWrongLetters([]);
     setGameStatus(GameStatus.InProgress);
     setPlayerTime(new Date());
+    setCountdown(COUNTDOWN_START); // Reset countdown to the start
   };
 
   const handleWordToGuess = useCallback(
@@ -91,6 +116,20 @@ function App() {
     },
     [countdown, guessedLetters, secretWord, wrongLetters]
   );
+
+  const handleRestart = () => {
+    setTemporalName('');
+    setGameStatus(GameStatus.ToStart);
+    setSecretWord('');
+    setGuessedLetters([]);
+    setWrongLetters([]);
+    setCountdown(COUNTDOWN_START); // Reset countdown to start
+  };
+
+  const handleSelectPlayer = (playerName: string) => {
+    setTemporalName(playerName);
+    handleStart();
+  };
 
   return (
     <AppWrapper>
@@ -126,6 +165,7 @@ function App() {
               Hangman
             </Typography>
           </TitleWrapper>
+
           <Grid
             item
             sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}
@@ -142,60 +182,99 @@ function App() {
               }}
             />
           </Grid>
+
+          {/* Previous players */}
+          <Grid
+            item
+            sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}
+          >
+            <Typography variant="h5" sx={{ marginTop: 3 }}>
+              Previous Players
+            </Typography>
+            <Box
+              sx={{
+                marginTop: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+              }}
+            >
+              {playersList.map((playerName, index) => (
+                <Button
+                  key={index}
+                  variant="contained"
+                  sx={{ margin: 1 }}
+                  onClick={() => handleSelectPlayer(playerName)}
+                >
+                  {playerName}
+                </Button>
+              ))}
+            </Box>
+          </Grid>
+
           <Grid item>
             <ButtonHM label={'Start'} onClick={handleStart} />
           </Grid>
         </Grid>
       )}
+
       {isGameInProgress(gameStatus) && (
-        <Grid
-          container
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
+        <Paper
           sx={{
-            minHeight: '100vh',
-            width: '100%',
+            width: '80%',
+            maxWidth: '900px',
+            margin: 'auto',
+            padding: 4,
+            borderRadius: '16px',
+            boxShadow: 3,
+            backgroundColor: palette.white,
             textAlign: 'center',
-            background: palette.white,
-            overflowX: 'hidden',
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: { xs: 'column', sm: 'row' },
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '100%',
-            }}
+          <Grid
+            container
+            spacing={3}
+            justifyContent="center"
+            alignItems="center"
           >
-            <Typography variant="h4" component="p">
-              {HANGMAN_IMAGE[countdown]}
-            </Typography>
-            <MovieWrapper>
-              <Typography
-                variant="h4"
-                component="p"
-                sx={{
-                  fontSize: {
-                    xs: '1.5rem',
-                    sm: '2rem',
-                    md: '2.5rem',
-                    lg: '3rem',
-                  },
-                  paddingBottom: 4,
-                }}
-              >
+            <Grid item xs={12} md={5}>
+              <Box display="flex" flexDirection="column" alignItems="center">
+                {HANGMAN_IMAGE[countdown]}
+                <Typography variant="h5" sx={{ marginTop: 2 }}>
+                  HANGMAN GAME
+                </Typography>
+                <Paper
+                  sx={{
+                    padding: 1,
+                    borderRadius: 2,
+                    marginTop: 1,
+                    backgroundColor: '#555',
+                    color: '#fff',
+                  }}
+                >
+                  <Typography variant="body1">Time left:</Typography>
+                  <Typography variant="h6">0:00</Typography>
+                </Paper>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={7}>
+              <Typography variant="h4" gutterBottom>
                 {getHiddenWord(secretWord, guessedLetters).toUpperCase()}
               </Typography>
-              <AlphabetWrapper container sx={{ width: '100%' }}>
+
+              <Typography variant="body1" sx={{ marginBottom: 2 }}>
+                Incorrect guesses: {wrongLetters.length} / 6
+              </Typography>
+              <AlphabetWrapper container spacing={1} justifyContent="center">
                 {alphabet.map((letter) => (
-                  <Grid key={letter} sx={{ padding: 0.5 }}>
+                  <Grid item key={letter} sx={{ padding: 0.5 }}>
                     <Button
                       onClick={() => handleWordToGuess(letter)}
                       variant="contained"
                       sx={{
+                        minWidth: '40px',
+                        minHeight: '40px',
+                        borderRadius: '50%',
                         backgroundColor: guessedLetters.includes(letter)
                           ? 'green'
                           : wrongLetters.includes(letter)
@@ -209,9 +288,40 @@ function App() {
                   </Grid>
                 ))}
               </AlphabetWrapper>
-            </MovieWrapper>
-          </Box>
-        </Grid>
+            </Grid>
+          </Grid>
+        </Paper>
+      )}
+
+      {/* Game End */}
+      {isGameEndedLose(gameStatus) && (
+        <GameEndWrapper>
+          <Typography variant="h4" color="error" gutterBottom>
+            You Lost! The movie was: {secretWord.toUpperCase()}
+          </Typography>
+
+          <RankingBoard rankings={rankings} />
+          <Button variant="contained" color="primary" onClick={handleRestart}>
+            Restart Game
+          </Button>
+        </GameEndWrapper>
+      )}
+      {isGameEndedWin(gameStatus) && (
+        <GameEndWrapper>
+          <Typography
+            variant="h4"
+            color="success"
+            gutterBottom
+            sx={{ color: palette.white }}
+          >
+            Congratulations! You Won! The movie was: {secretWord.toUpperCase()}
+          </Typography>
+
+          <RankingBoard rankings={rankings} />
+          <Button variant="contained" color="primary" onClick={handleRestart}>
+            Restart Game
+          </Button>
+        </GameEndWrapper>
       )}
     </AppWrapper>
   );
