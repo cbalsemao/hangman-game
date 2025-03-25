@@ -4,9 +4,7 @@ import { Global } from '@emotion/react';
 import {
   AlphabetWrapper,
   GameEndWrapper,
-  MovieWrapper,
   TitleWrapper,
-  GlobalStyles,
   palette,
   theme,
 } from './styles/styleguide';
@@ -24,11 +22,38 @@ import {
   isGameEndedWin,
   isGameInProgress,
   isGameToStart,
-  parseScore,
   selectRandomMovie,
 } from './utils/utility';
 import { HangmanSteps, Ranking } from './utils/types';
 import { AppWrapper, ButtonHM, RankingBoard } from './utils/components';
+import GameToStartSection from './sections/GameToStartSection';
+
+const Timer = () => {
+  const [time, setTime] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime((prevTime) => prevTime + 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+  };
+
+  return (
+    <Box>
+      <Typography variant="body1">Time:</Typography>
+      <Typography variant="h5">{formatTime(time)}</Typography>
+    </Box>
+  );
+};
+
+//TODO: Implement a customHook for this functionality
 
 function App() {
   const [countdown, setCountdown] = useState<HangmanSteps>(COUNTDOWN_START);
@@ -37,10 +62,9 @@ function App() {
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [wrongLetters, setWrongLetters] = useState<string[]>([]);
   const [temporalName, setTemporalName] = useState<string>('');
+  const [playersList, setPlayersList] = useState<string[]>([]);
   const [rankings, setRankings] = useState<Ranking[]>([]);
   const [playerTime, setPlayerTime] = useState(new Date());
-  const [playersList, setPlayersList] = useState<string[]>([]); // Estado para los jugadores anteriores
-
   const tmpScorePlayer = calculateScore(wrongLetters, guessedLetters);
   const tmpFinalTime = calculatePlayerTime(playerTime, new Date());
 
@@ -54,10 +78,9 @@ function App() {
     setPlayersList(storedPlayers);
   }, []);
 
-  // Guardar los rankings y la lista de jugadores en localStorage
   useEffect(() => {
     localStorage.setItem('rankings', JSON.stringify(rankings));
-    localStorage.setItem('playersList', JSON.stringify(playersList)); // Guardar la lista de jugadores
+    localStorage.setItem('playersList', JSON.stringify(playersList));
   }, [rankings, playersList]);
 
   useEffect(() => {
@@ -71,7 +94,6 @@ function App() {
       );
       setRankings(updatedRankings);
 
-      // Agregar el nombre del jugador a la lista si no está ya presente
       if (!playersList.includes(temporalName)) {
         const updatedPlayersList = [...playersList, temporalName];
         setPlayersList(updatedPlayersList);
@@ -90,7 +112,7 @@ function App() {
     setWrongLetters([]);
     setGameStatus(GameStatus.InProgress);
     setPlayerTime(new Date());
-    setCountdown(COUNTDOWN_START); // Reset countdown to the start
+    setCountdown(COUNTDOWN_START);
   };
 
   const handleWordToGuess = useCallback(
@@ -123,7 +145,7 @@ function App() {
     setSecretWord('');
     setGuessedLetters([]);
     setWrongLetters([]);
-    setCountdown(COUNTDOWN_START); // Reset countdown to start
+    setCountdown(COUNTDOWN_START);
   };
 
   const handleSelectPlayer = (playerName: string) => {
@@ -137,87 +159,13 @@ function App() {
         styles={{ body: { overflowX: 'hidden', margin: 0, padding: 0 } }}
       />
       {isGameToStart(gameStatus) && (
-        <Grid
-          container
-          spacing={2}
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          sx={{
-            width: '100%',
-            height: '100%',
-            textAlign: 'center',
-            background: palette.white,
-          }}
-        >
-          <TitleWrapper>
-            <Typography
-              variant="h2"
-              component="h1"
-              gutterBottom
-              align="center"
-              sx={{
-                fontFamily: theme.typography.fontFamily,
-                fontWeight: 'bold',
-                fontSize: { xs: '2rem', sm: '3rem', md: '4rem', lg: '6rem' },
-              }}
-            >
-              Hangman
-            </Typography>
-          </TitleWrapper>
-
-          <Grid
-            item
-            sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}
-          >
-            <TextField
-              id="outlined-basic"
-              label="Type your name"
-              onChange={(e) => setTemporalName(e.target.value)}
-              sx={{
-                width: '80%',
-                maxWidth: '400px',
-                backgroundColor: palette.white,
-                borderRadius: 2,
-              }}
-            />
-          </Grid>
-
-          {/* Previous players */}
-          <Grid
-            item
-            sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}
-          >
-            <Typography variant="h5" sx={{ marginTop: 3 }}>
-              Previous Players
-            </Typography>
-            <Box
-              sx={{
-                marginTop: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}
-            >
-              {playersList.map((playerName, index) => (
-                <Button
-                  key={index}
-                  variant="contained"
-                  sx={{ margin: 1 }}
-                  onClick={() => handleSelectPlayer(playerName)}
-                >
-                  {playerName}
-                </Button>
-              ))}
-            </Box>
-          </Grid>
-
-          <Grid item>
-            <ButtonHM label={'Start'} onClick={handleStart} />
-          </Grid>
-        </Grid>
+        <GameToStartSection
+          playersList={playersList}
+          handleSelectPlayer={handleSelectPlayer}
+          setTemporalName={setTemporalName}
+          handleStart={handleStart}
+        />
       )}
-
       {isGameInProgress(gameStatus) && (
         <Paper
           sx={{
@@ -252,8 +200,7 @@ function App() {
                     color: '#fff',
                   }}
                 >
-                  <Typography variant="body1">Time left:</Typography>
-                  <Typography variant="h6">0:00</Typography>
+                  <Timer />
                 </Paper>
               </Box>
             </Grid>
@@ -293,7 +240,6 @@ function App() {
         </Paper>
       )}
 
-      {/* Game End */}
       {isGameEndedLose(gameStatus) && (
         <GameEndWrapper>
           <Typography variant="h4" color="error" gutterBottom>

@@ -2,6 +2,7 @@ import { Button, Card, Grid, Typography } from '@mui/material';
 import { ButtonWrapper, palette, theme } from '../styles/styleguide';
 import { Ranking } from './types';
 import { RankingBdWrapper, RankingList } from '../styles/styleguide';
+import { useEffect, useState } from 'react';
 type ButtonHMProps = {
   title?: string;
   label: string;
