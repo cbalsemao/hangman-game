@@ -67,6 +67,14 @@ const TempNameStyle = styled(TextField)({
       borderColor: palette.black,
     },
   },
+  '& .MuiInputLabel-root': {
+    fontFamily: theme.typography.fontFamily,
+    color: palette.gray,
+    padding: '10px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   '& .MuiInputBase-input': {
     fontFamily: theme.typography.fontFamily,
     fontSize: '1rem',
@@ -93,6 +101,7 @@ const PrevPlayersButtonsStyle = styled(Box)({
 
 const PrevPlayersTitle = styled(Typography)(({ theme }) => ({
   fontFamily: 'Papyrus, fantasy',
+
   color: palette.white,
   fontWeight: 'bold',
   fontSize: '1rem',
