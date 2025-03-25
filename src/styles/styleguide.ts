@@ -15,7 +15,8 @@ export const palette = {
 
 export const theme = createTheme({
   typography: {
-    fontFamily: 'Courier New, Courier, monospace',
+    // fontFamily: 'Courier New, Courier, monospace',
+    fontFamily: 'Papyrus;',
     fontSize: 16,
   },
   breakpoints: {

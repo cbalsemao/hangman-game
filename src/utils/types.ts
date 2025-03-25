@@ -13,3 +13,10 @@ export type Ranking = {
   time: string;
   movie: string;
 };
+
+export type GameToStartSectionProps = {
+  playersList: string[];
+  handleSelectPlayer: (playerName: string) => void;
+  setTemporalName: (name: string) => void;
+  handleStart: () => void;
+};

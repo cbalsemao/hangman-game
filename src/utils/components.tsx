@@ -2,38 +2,39 @@ import { Button, Card, Grid, Typography } from '@mui/material';
 import { ButtonWrapper, palette, theme } from '../styles/styleguide';
 import { Ranking } from './types';
 import { RankingBdWrapper, RankingList } from '../styles/styleguide';
-import { useEffect, useState } from 'react';
 type ButtonHMProps = {
   title?: string;
   label: string;
   onClick: () => void;
 };
 
-export const ButtonHM = ({ title, label, onClick }: ButtonHMProps) => {
+export const ButtonHM = ({ label, onClick }: ButtonHMProps) => {
   return (
-    <ButtonWrapper>
-      <p>{title}</p>
-      <Button
-        onClick={onClick}
-        variant="contained"
-        sx={{
-          color: 'black',
-          backgroundColor: palette.darkWhite,
-          fontFamily: theme.typography.fontFamily,
-          fontWeight: 'bold',
-          fontSize: '20px',
-          transition: 'transform 0.3s ease, background-color 0.3s ease',
+    <Button
+      onClick={onClick}
+      variant="contained"
+      sx={{
+        color: palette.black,
+        backgroundColor: palette.white,
+        fontFamily: theme.typography.fontFamily,
+        fontWeight: 'bold',
+        fontSize: '18px',
+        padding: '10px 20px',
+        borderRadius: '25px',
+        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.3)',
+        transition:
+          'transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease',
 
-          '&:hover': {
-            backgroundColor: palette.black,
-            transform: 'scale(1.1)',
-            color: palette.white,
-          },
-        }}
-      >
-        {label}
-      </Button>
-    </ButtonWrapper>
+        '&:hover': {
+          backgroundColor: palette.black,
+          transform: 'scale(1.1)',
+          color: palette.white,
+          boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.5)',
+        },
+      }}
+    >
+      {label}
+    </Button>
   );
 };
 
@@ -154,10 +155,6 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
-
-        backgroundColor: palette.black,
-        paddingRight: { xs: 2, sm: 3, md: 4, lg: 20 },
-        paddingLeft: { xs: 2, sm: 3, md: 4, lg: 20 },
       }}
     >
       {children}
