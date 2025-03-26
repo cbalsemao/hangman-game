@@ -133,7 +133,7 @@ const PlayerNameButton = styled(Button)({
   borderRadius: '10px',
   border: `2px solid ${palette.white}`,
   transition: 'transform 0.3s ease, background-color 0.3s ease',
-
+  width: 'fit-content',
   '&:hover': {
     backgroundColor: palette.gray,
     transform: 'scale(1.1)',
@@ -143,6 +143,7 @@ const PlayerNameButton = styled(Button)({
 const GameToStartSection = ({
   playersList,
   handleSelectPlayer,
+  temporalName,
   setTemporalName,
   handleStart,
 }: GameToStartSectionProps) => {
@@ -154,29 +155,36 @@ const GameToStartSection = ({
         id="outlined-basic"
         label="Type your name"
         onChange={(e) => setTemporalName(e.target.value)}
-        inputProps={{ maxLength: 10 }}
+        inputProps={{ maxLength: 8 }}
       />
 
       <PrevPlayersContainerStyle item>
         <PrevPlayersTitle>Previous Players</PrevPlayersTitle>
-        <PrevPlayersButtonsStyle>
-          <Grid container spacing={2} justifyContent="center">
-            {playersList.map((playerName, index) => (
-              <Grid item xs={6} sm={3} md={3} key={index}>
-                <PlayerNameButton
-                  variant="contained"
-                  fullWidth
-                  onClick={() => handleSelectPlayer(playerName)}
-                >
-                  {playerName}
-                </PlayerNameButton>
-              </Grid>
-            ))}
-          </Grid>
-        </PrevPlayersButtonsStyle>
+
+        <Grid container spacing={2} justifyContent="center" padding={2}>
+          {playersList.map((playerName, index) => (
+            <Grid item key={index}>
+              <PlayerNameButton
+                variant="contained"
+                onClick={() => handleSelectPlayer(playerName)}
+              >
+                {playerName.substring(0, 10)}
+              </PlayerNameButton>
+            </Grid>
+          ))}
+        </Grid>
       </PrevPlayersContainerStyle>
 
-      <ButtonHM label={'Start'} onClick={handleStart} />
+      <ButtonHM
+        label={'Start'}
+        onClick={() => {
+          if (temporalName) {
+            handleStart();
+          } else {
+            alert('Please type your name'); //TODO: implement snackbar MUI
+          }
+        }}
+      />
     </GameTostartContainerStyle>
   );
 };

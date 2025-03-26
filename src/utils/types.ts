@@ -19,6 +19,7 @@ export type GameToStartSectionProps = {
   handleSelectPlayer: (playerName: string) => void;
   setTemporalName: (name: string) => void;
   handleStart: () => void;
+  temporalName: string;
 };
 
 export type GameInProgressSectionProps = {

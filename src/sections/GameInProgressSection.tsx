@@ -81,9 +81,11 @@ const GameInProgressSection = ({
             <Typography variant="body1" sx={{ marginBottom: 2 }}>
               Incorrect guesses: {wrongLetters.length} / 6
             </Typography>
+
             <AlphabetWrapper container spacing={1} justifyContent="center">
-              {alphabet.map((letter) => (
+              {alphabet.map((letter, index) => (
                 <Button
+                  key={letter + index}
                   onClick={() => handleWordToGuess(letter)}
                   variant="contained"
                   sx={{

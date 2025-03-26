@@ -105,10 +105,6 @@ function App() {
   }, [gameStatus]);
 
   const handleStart = () => {
-    if (!temporalName) {
-      alert('Enter a player name!');
-      return;
-    } //TODO: this message doesnt have to appear when the user select a previous player
     const newSecretWord = selectRandomMovie();
     setSecretWord(newSecretWord.toLowerCase());
     setGuessedLetters([]);
@@ -164,6 +160,7 @@ function App() {
         <GameToStartSection
           playersList={playersList}
           handleSelectPlayer={handleSelectPlayer}
+          temporalName={temporalName}
           setTemporalName={setTemporalName}
           handleStart={handleStart}
         />
