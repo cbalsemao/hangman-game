@@ -1,23 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Button, Grid, TextField, Typography, Paper, Box } from '@mui/material';
+import { Button, Typography, Box } from '@mui/material';
 import { Global } from '@emotion/react';
 import {
-  AlphabetWrapper,
   GameEndWrapper,
   GlobalStylesApp,
-  TitleWrapper,
   palette,
   theme,
 } from './styles/styleguide';
 import {
-  alphabet,
   calculatePlayerTime,
   calculateScore,
   COUNTDOWN_END,
   COUNTDOWN_START,
   GameStatus,
   getHiddenWord,
-  HANGMAN_IMAGE,
   insertInRanking,
   isGameEndedLose,
   isGameEndedWin,
@@ -26,12 +22,7 @@ import {
   selectRandomMovie,
 } from './utils/utility';
 import { HangmanSteps, Ranking } from './utils/types';
-import {
-  AppWrapper,
-  ButtonHM,
-  RankingBoard,
-  ReturnMenuButton,
-} from './utils/components';
+import { AppWrapper, RankingBoard, ReturnMenuButton } from './utils/components';
 import GameToStartSection from './sections/GameToStartSection';
 import GameInProgressSection from './sections/GameInProgressSection';
 
@@ -117,7 +108,7 @@ function App() {
     if (!temporalName) {
       alert('Enter a player name!');
       return;
-    }
+    } //TODO: this message doesnt have to appear when the user select a previous player
     const newSecretWord = selectRandomMovie();
     setSecretWord(newSecretWord.toLowerCase());
     setGuessedLetters([]);

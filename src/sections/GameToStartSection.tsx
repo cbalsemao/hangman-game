@@ -154,6 +154,7 @@ const GameToStartSection = ({
         id="outlined-basic"
         label="Type your name"
         onChange={(e) => setTemporalName(e.target.value)}
+        inputProps={{ maxLength: 10 }}
       />
 
       <PrevPlayersContainerStyle item>
