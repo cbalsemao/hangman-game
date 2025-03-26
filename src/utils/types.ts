@@ -20,3 +20,12 @@ export type GameToStartSectionProps = {
   setTemporalName: (name: string) => void;
   handleStart: () => void;
 };
+
+export type GameInProgressSectionProps = {
+  secretWord: string;
+  guessedLetters: string[];
+  wrongLetters: string[];
+  handleWordToGuess: (letter: string) => void;
+  handleRestart: () => void;
+  countdown: number;
+};

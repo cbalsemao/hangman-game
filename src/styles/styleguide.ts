@@ -29,9 +29,11 @@ export const theme = createTheme({
   },
 });
 
-export const GlobalStyles = css`
-  body {
+export const GlobalStylesApp = css`
+  html {
     font-family: ${theme.typography.fontFamily};
+  }
+  body {
     background-color: ${palette.white};
     margin: 0;
   }

@@ -2,6 +2,7 @@ import { Button, Card, Grid, Typography } from '@mui/material';
 import { ButtonWrapper, palette, theme } from '../styles/styleguide';
 import { Ranking } from './types';
 import { RankingBdWrapper, RankingList } from '../styles/styleguide';
+import { ReactNode } from 'react';
 type ButtonHMProps = {
   title?: string;
   label: string;
@@ -145,16 +146,24 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
   );
 };
 
-export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
+export const AppWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <Grid
       container
       sx={{
-        height: '100vh',
+        top: 0,
+        left: 0,
+        height: '100%',
         width: '100vw',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
+        backgroundImage: 'url(./background-img.jpg)',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        margin: 0,
+        padding: 0,
       }}
     >
       {children}
@@ -162,6 +171,14 @@ export const AppWrapper = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const Wrapper = ({ children }: { children: React.ReactNode }) => {
-  return <Grid container>{children}</Grid>;
+export const ReturnMenuButton = ({
+  handleStart,
+}: {
+  handleStart: () => void;
+}) => {
+  return (
+    <ButtonWrapper>
+      <ButtonHM label="Return to Menu" onClick={handleStart} />
+    </ButtonWrapper>
+  );
 };

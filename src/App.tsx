@@ -4,6 +4,7 @@ import { Global } from '@emotion/react';
 import {
   AlphabetWrapper,
   GameEndWrapper,
+  GlobalStylesApp,
   TitleWrapper,
   palette,
   theme,
@@ -25,10 +26,16 @@ import {
   selectRandomMovie,
 } from './utils/utility';
 import { HangmanSteps, Ranking } from './utils/types';
-import { AppWrapper, ButtonHM, RankingBoard } from './utils/components';
+import {
+  AppWrapper,
+  ButtonHM,
+  RankingBoard,
+  ReturnMenuButton,
+} from './utils/components';
 import GameToStartSection from './sections/GameToStartSection';
+import GameInProgressSection from './sections/GameInProgressSection';
 
-const Timer = () => {
+export const Timer = () => {
   const [time, setTime] = useState(0);
 
   useEffect(() => {
@@ -47,7 +54,12 @@ const Timer = () => {
 
   return (
     <Box>
-      <Typography variant="body1">Time:</Typography>
+      <Typography
+        variant="body1"
+        sx={{ fontFamily: theme.typography.fontFamily, fontWeight: 'bold' }}
+      >
+        Time:
+      </Typography>
       <Typography variant="h5">{formatTime(time)}</Typography>
     </Box>
   );
@@ -155,9 +167,8 @@ function App() {
 
   return (
     <AppWrapper>
-      <Global
-        styles={{ body: { overflowX: 'hidden', margin: 0, padding: 0 } }}
-      />
+      <Global styles={GlobalStylesApp} />
+
       {isGameToStart(gameStatus) && (
         <GameToStartSection
           playersList={playersList}
@@ -167,77 +178,14 @@ function App() {
         />
       )}
       {isGameInProgress(gameStatus) && (
-        <Paper
-          sx={{
-            width: '80%',
-            maxWidth: '900px',
-            margin: 'auto',
-            padding: 4,
-            borderRadius: '16px',
-            boxShadow: 3,
-            backgroundColor: palette.white,
-            textAlign: 'center',
-          }}
-        >
-          <Grid
-            container
-            spacing={3}
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Grid item xs={12} md={5}>
-              <Box display="flex" flexDirection="column" alignItems="center">
-                {HANGMAN_IMAGE[countdown]}
-                <Typography variant="h5" sx={{ marginTop: 2 }}>
-                  HANGMAN GAME
-                </Typography>
-                <Paper
-                  sx={{
-                    padding: 1,
-                    borderRadius: 2,
-                    marginTop: 1,
-                    backgroundColor: '#555',
-                    color: '#fff',
-                  }}
-                >
-                  <Timer />
-                </Paper>
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={7}>
-              <Typography variant="h4" gutterBottom>
-                {getHiddenWord(secretWord, guessedLetters).toUpperCase()}
-              </Typography>
-
-              <Typography variant="body1" sx={{ marginBottom: 2 }}>
-                Incorrect guesses: {wrongLetters.length} / 6
-              </Typography>
-              <AlphabetWrapper container spacing={1} justifyContent="center">
-                {alphabet.map((letter) => (
-                  <Grid item key={letter} sx={{ padding: 0.5 }}>
-                    <Button
-                      onClick={() => handleWordToGuess(letter)}
-                      variant="contained"
-                      sx={{
-                        minWidth: '40px',
-                        minHeight: '40px',
-                        borderRadius: '50%',
-                        backgroundColor: guessedLetters.includes(letter)
-                          ? 'green'
-                          : wrongLetters.includes(letter)
-                          ? 'red'
-                          : palette.black,
-                        fontWeight: 'bold',
-                      }}
-                    >
-                      {letter.toUpperCase()}
-                    </Button>
-                  </Grid>
-                ))}
-              </AlphabetWrapper>
-            </Grid>
-          </Grid>
-        </Paper>
+        <GameInProgressSection
+          secretWord={secretWord}
+          guessedLetters={guessedLetters}
+          wrongLetters={wrongLetters}
+          handleWordToGuess={handleWordToGuess}
+          handleRestart={handleRestart}
+          countdown={countdown}
+        />
       )}
 
       {isGameEndedLose(gameStatus) && (
@@ -264,9 +212,7 @@ function App() {
           </Typography>
 
           <RankingBoard rankings={rankings} />
-          <Button variant="contained" color="primary" onClick={handleRestart}>
-            Restart Game
-          </Button>
+          <ReturnMenuButton handleStart={handleRestart} />
         </GameEndWrapper>
       )}
     </AppWrapper>

@@ -9,7 +9,7 @@ import img6 from '../assets/img-hangman7.png';
 import { HangmanSteps, Movies, Ranking } from './types';
 import { MOCK_MOVIES } from './movies';
 
-const HANGMAN_IMAGE_SIZE = { width: '300', height: '300' };
+const HANGMAN_IMAGE_SIZE = { width: '250', height: '250' };
 
 export const HANGMAN_IMAGE: Record<HangmanSteps, ReactElement> = {
   0: <img src={img6} {...HANGMAN_IMAGE_SIZE} />,
