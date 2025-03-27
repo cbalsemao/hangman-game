@@ -7,7 +7,7 @@ import {
   styled,
 } from '@mui/material';
 import { palette, theme } from '../styles/styleguide';
-import { ButtonHM } from '../utils/components';
+import { ButtonHM } from '../components/StyledComponents';
 import { GameToStartSectionProps } from '../utils/types';
 
 const GameTostartContainerStyle = styled(Grid)({
@@ -176,7 +176,7 @@ const GameToStartSection = ({
       </PrevPlayersContainerStyle>
 
       <ButtonHM
-        label={'Start'}
+        variant="contained"
         onClick={() => {
           if (temporalName) {
             handleStart();
@@ -184,7 +184,10 @@ const GameToStartSection = ({
             alert('Please type your name'); //TODO: implement snackbar MUI
           }
         }}
-      />
+      >
+        {' '}
+        Start{' '}
+      </ButtonHM>
     </GameTostartContainerStyle>
   );
 };

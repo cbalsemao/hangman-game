@@ -30,3 +30,9 @@ export type GameInProgressSectionProps = {
   handleRestart: () => void;
   countdown: number;
 };
+
+export type ButtonHMProps = {
+  title?: string;
+  label: string;
+  onClick: () => void;
+};

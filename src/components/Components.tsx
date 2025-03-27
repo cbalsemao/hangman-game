@@ -1,41 +1,24 @@
-import { Button, Card, Grid, Typography } from '@mui/material';
-import { ButtonWrapper, palette, theme } from '../styles/styleguide';
-import { Ranking } from './types';
-import { RankingBdWrapper, RankingList } from '../styles/styleguide';
-import { ReactNode } from 'react';
-type ButtonHMProps = {
-  title?: string;
-  label: string;
-  onClick: () => void;
-};
+import { Card, Grid, Typography } from '@mui/material';
+import {
+  ButtonHM,
+  ButtonWrapper,
+  RankingBdWrapper,
+  RankingList,
+} from './StyledComponents';
+import { palette } from '../styles/styleguide';
+import { Ranking } from '../utils/types';
 
-export const ButtonHM = ({ label, onClick }: ButtonHMProps) => {
+export const ReturnMenuButton = ({
+  handleStart,
+}: {
+  handleStart: () => void;
+}) => {
   return (
-    <Button
-      onClick={onClick}
-      variant="contained"
-      sx={{
-        color: palette.black,
-        backgroundColor: palette.white,
-        fontFamily: theme.typography.fontFamily,
-        fontWeight: 'bold',
-        fontSize: '18px',
-        padding: '10px 20px',
-        borderRadius: '25px',
-        boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.3)',
-        transition:
-          'transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease',
-
-        '&:hover': {
-          backgroundColor: palette.black,
-          transform: 'scale(1.1)',
-          color: palette.white,
-          boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.5)',
-        },
-      }}
-    >
-      {label}
-    </Button>
+    <ButtonWrapper>
+      <ButtonHM onClick={handleStart} variant="contained">
+        Return to menu
+      </ButtonHM>
+    </ButtonWrapper>
   );
 };
 
@@ -143,42 +126,5 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
         </RankingList>
       </RankingBdWrapper>
     </Card>
-  );
-};
-
-export const AppWrapper = ({ children }: { children: ReactNode }) => {
-  return (
-    <Grid
-      container
-      sx={{
-        top: 0,
-        left: 0,
-        height: '100%',
-        width: '100vw',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        backgroundImage: 'url(./background-img.jpg)',
-        backgroundPosition: 'center',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        margin: 0,
-        padding: 0,
-      }}
-    >
-      {children}
-    </Grid>
-  );
-};
-
-export const ReturnMenuButton = ({
-  handleStart,
-}: {
-  handleStart: () => void;
-}) => {
-  return (
-    <ButtonWrapper>
-      <ButtonHM label="Return to Menu" onClick={handleStart} />
-    </ButtonWrapper>
   );
 };

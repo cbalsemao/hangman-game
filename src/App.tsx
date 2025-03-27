@@ -1,12 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Button, Typography, Box } from '@mui/material';
 import { Global } from '@emotion/react';
-import {
-  GameEndWrapper,
-  GlobalStylesApp,
-  palette,
-  theme,
-} from './styles/styleguide';
+import { GlobalStylesApp, palette, theme } from './styles/styleguide';
 import {
   calculatePlayerTime,
   calculateScore,
@@ -22,9 +17,10 @@ import {
   selectRandomMovie,
 } from './utils/utility';
 import { HangmanSteps, Ranking } from './utils/types';
-import { AppWrapper, RankingBoard, ReturnMenuButton } from './utils/components';
+import { AppWrapper, GameEndWrapper } from './components/StyledComponents';
 import GameToStartSection from './sections/GameToStartSection';
 import GameInProgressSection from './sections/GameInProgressSection';
+import { RankingBoard, ReturnMenuButton } from './components/Components';
 
 export const Timer = () => {
   const [time, setTime] = useState(0);
@@ -153,7 +149,7 @@ function App() {
   };
 
   return (
-    <AppWrapper>
+    <AppWrapper container>
       <Global styles={GlobalStylesApp} />
 
       {isGameToStart(gameStatus) && (

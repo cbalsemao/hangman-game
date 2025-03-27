@@ -1,9 +1,10 @@
 import { Box, Button, Grid, Paper, styled, Typography } from '@mui/material';
-import { AlphabetWrapper, palette, theme } from '../styles/styleguide';
+import { palette, theme } from '../styles/styleguide';
 import { alphabet, getHiddenWord, HANGMAN_IMAGE } from '../utils/utility';
 import { Timer } from '../App';
 import { GameInProgressSectionProps } from '../utils/types';
-import { ReturnMenuButton } from '../utils/components';
+import { AlphabetWrapper } from '../components/StyledComponents';
+import { ReturnMenuButton } from '../components/Components';
 
 const GameInProgContainerStyle = styled(Box)(({ theme }) => ({
   display: 'flex',
@@ -74,7 +75,7 @@ const GameInProgressSection = ({
             </Box>
           </Grid>
           <Grid item xs={12} md={7}>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h6">
               {getHiddenWord(secretWord, guessedLetters).toUpperCase()}
             </Typography>
 
