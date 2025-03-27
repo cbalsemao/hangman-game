@@ -21,6 +21,7 @@ import { AppWrapper, GameEndWrapper } from './components/StyledComponents';
 import GameToStartSection from './sections/GameToStartSection';
 import GameInProgressSection from './sections/GameInProgressSection';
 import { RankingBoard, ReturnMenuButton } from './components/Components';
+import { GameEndedSection } from './sections/GameEndedSection';
 
 export const Timer = () => {
   const [time, setTime] = useState(0);
@@ -172,32 +173,13 @@ function App() {
         />
       )}
 
-      {isGameEndedLose(gameStatus) && (
-        <GameEndWrapper>
-          <Typography variant="h4" color="error" gutterBottom>
-            You Lost! The movie was: {secretWord.toUpperCase()}
-          </Typography>
-
-          <RankingBoard rankings={rankings} />
-          <Button variant="contained" color="primary" onClick={handleRestart}>
-            Restart Game
-          </Button>
-        </GameEndWrapper>
-      )}
-      {isGameEndedWin(gameStatus) && (
-        <GameEndWrapper>
-          <Typography
-            variant="h4"
-            color="success"
-            gutterBottom
-            sx={{ color: palette.white }}
-          >
-            Congratulations! You Won! The movie was: {secretWord.toUpperCase()}
-          </Typography>
-
-          <RankingBoard rankings={rankings} />
-          <ReturnMenuButton handleStart={handleRestart} />
-        </GameEndWrapper>
+      {(isGameEndedLose(gameStatus) || isGameEndedWin(gameStatus)) && (
+        <GameEndedSection
+          secretWord={secretWord}
+          rankings={rankings}
+          handleRestart={handleRestart}
+          gameStatus={gameStatus}
+        />
       )}
     </AppWrapper>
   );

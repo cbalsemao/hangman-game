@@ -55,6 +55,8 @@ export const GameEndWrapper = styled(Grid)({
   justifyContent: 'center',
   alignItems: 'center',
   gap: '16px',
+  height: '100vh',
+  width: '100vw',
 });
 
 export const RankingBdWrapper = styled(CardContent)`
