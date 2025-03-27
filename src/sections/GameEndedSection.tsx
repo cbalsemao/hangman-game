@@ -1,7 +1,7 @@
 import { styled, Typography } from '@mui/material';
 import { RankingBoard, ReturnMenuButton } from '../components/Components';
 import { GameEndWrapper } from '../components/StyledComponents';
-import { palette, theme } from '../styles/styleguide';
+import { palette } from '../styles/styleguide';
 import { Ranking } from '../utils/types';
 
 const WinOrLoseMessageStyled = styled(Typography)(({ theme }) => ({

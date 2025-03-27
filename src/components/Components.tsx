@@ -1,4 +1,4 @@
-import { Card, Grid, Typography, typographyClasses } from '@mui/material';
+import { Card, Grid, Typography } from '@mui/material';
 import {
   ButtonHM,
   ButtonWrapper,
