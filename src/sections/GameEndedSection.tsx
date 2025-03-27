@@ -1,8 +1,14 @@
-import { Typography } from '@mui/material';
+import { styled, Typography } from '@mui/material';
 import { RankingBoard, ReturnMenuButton } from '../components/Components';
 import { GameEndWrapper } from '../components/StyledComponents';
-import { palette } from '../styles/styleguide';
+import { palette, theme } from '../styles/styleguide';
 import { Ranking } from '../utils/types';
+
+const WinOrLoseMessageStyled = styled(Typography)((props) => ({
+  fontWeight: 'bold',
+  fontFamily: theme.typography.fontFamily,
+  color: palette.white,
+}));
 
 export const GameEndedSection = ({
   secretWord,
@@ -18,23 +24,13 @@ export const GameEndedSection = ({
   return (
     <GameEndWrapper>
       {gameStatus === 'Win' ? (
-        <Typography
-          variant="h4"
-          color="success"
-          gutterBottom
-          sx={{ color: palette.white }}
-        >
+        <WinOrLoseMessageStyled variant="h4">
           Congratulations! You Won! The movie was: {secretWord.toUpperCase()}
-        </Typography>
+        </WinOrLoseMessageStyled>
       ) : (
-        <Typography
-          variant="h4"
-          color="error"
-          gutterBottom
-          sx={{ color: palette.white }}
-        >
+        <WinOrLoseMessageStyled variant="h4">
           Game Over! The movie was: {secretWord.toUpperCase()}
-        </Typography>
+        </WinOrLoseMessageStyled>
       )}
 
       <RankingBoard rankings={rankings} />
