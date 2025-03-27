@@ -1,11 +1,11 @@
-import { Card, Grid, Typography } from '@mui/material';
+import { Card, Grid, Typography, typographyClasses } from '@mui/material';
 import {
   ButtonHM,
   ButtonWrapper,
   RankingBdWrapper,
   RankingList,
 } from './StyledComponents';
-import { palette } from '../styles/styleguide';
+import { palette, theme } from '../styles/styleguide';
 import { Ranking } from '../utils/types';
 
 export const ReturnMenuButton = ({
@@ -31,10 +31,10 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
     <Card
       sx={{
         width: 400,
-        padding: 2,
-        backgroundColor: palette.darkWhite,
-        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.2)',
-        borderRadius: '10px',
+        padding: 3,
+        backgroundColor: palette.white,
+        boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.15)',
+        borderRadius: '15px',
       }}
     >
       <RankingBdWrapper>
@@ -46,32 +46,26 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
             textAlign: 'center',
             fontWeight: 'bold',
             color: palette.black,
-            marginBottom: 2,
+            marginBottom: 3,
+            letterSpacing: '1px',
+            fontFamily: theme.typography.fontFamily,
           }}
         >
-          Ranking
+          Leaderboard
         </Typography>
         <RankingList>
-          <Grid container direction="column" spacing={1}>
+          <Grid container direction="column" spacing={2}>
             {winners.map((player, index) => (
               <Grid
                 container
                 direction="row"
                 key={player.name + '' + index}
                 sx={{
-                  padding: 1,
-                  backgroundColor:
-                    index === 0
-                      ? palette.burgundy
-                      : index === 1
-                      ? palette.darkWhite
-                      : index === 2
-                      ? palette.darkWhite
-                      : index % 2 === 0
-                      ? palette.darkWhite
-                      : palette.white,
-                  borderRadius: '5px',
+                  padding: 2,
+                  backgroundColor: palette.white,
+                  borderRadius: '10px',
                   alignItems: 'center',
+                  boxShadow: '0px 4px 10px rgba(2, 2, 2, 0.1)',
                 }}
               >
                 <Grid
@@ -88,7 +82,7 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
                 </Grid>
                 <Grid
                   item
-                  xs={4}
+                  xs={5}
                   sx={{
                     textAlign: 'left',
                     fontWeight: 'bold',
@@ -100,10 +94,11 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
                 </Grid>
                 <Grid
                   item
-                  xs={3}
+                  xs={2}
                   sx={{
                     textAlign: 'center',
                     fontSize: '14px',
+                    fontWeight: '500',
                     color: palette.black,
                   }}
                 >
@@ -115,6 +110,7 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
                   sx={{
                     textAlign: 'center',
                     fontSize: '14px',
+                    fontWeight: '500',
                     color: palette.black,
                   }}
                 >
