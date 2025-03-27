@@ -1,14 +1,17 @@
 import {
-  Box,
   Grid,
   TextField,
   Typography,
   Button,
   styled,
+  Snackbar,
+  SnackbarCloseReason,
+  IconButton,
 } from '@mui/material';
 import { palette, theme } from '../styles/styleguide';
 import { ButtonHM } from '../components/StyledComponents';
 import { GameToStartSectionProps } from '../utils/types';
+import { useState } from 'react';
 
 const GameTostartContainerStyle = styled(Grid)({
   flexDirection: 'column',
@@ -92,13 +95,6 @@ const PrevPlayersContainerStyle = styled(Grid)({
   padding: 10,
 });
 
-const PrevPlayersButtonsStyle = styled(Box)({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  padding: 10,
-});
-
 const PrevPlayersTitle = styled(Typography)(({ theme }) => ({
   fontFamily: 'Papyrus, fantasy',
 
@@ -147,6 +143,32 @@ const GameToStartSection = ({
   setTemporalName,
   handleStart,
 }: GameToStartSectionProps) => {
+  const [open, setOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+
+  const handleClose = (
+    event: React.SyntheticEvent | Event,
+    reason?: SnackbarCloseReason
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const action = (
+    <>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        x
+      </IconButton>
+    </>
+  );
+
   return (
     <GameTostartContainerStyle container spacing={2}>
       <HangmanTitleStyle>Hangman</HangmanTitleStyle>
@@ -181,13 +203,21 @@ const GameToStartSection = ({
           if (temporalName) {
             handleStart();
           } else {
-            alert('Please type your name'); //TODO: implement snackbar MUI
+            setSnackbarMessage('Please enter your name before starting!');
+            setOpen(true);
           }
         }}
       >
-        {' '}
-        Start{' '}
+        Start
       </ButtonHM>
+
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message={snackbarMessage}
+        action={action}
+      />
     </GameTostartContainerStyle>
   );
 };
