@@ -30,24 +30,23 @@ const GameTostartContainerStyle = styled(Grid)({
 
 const HangmanTitleStyle = styled(Typography)((props) => ({
   textAlign: 'center',
-  fontFamily: 'Papyrus, fantasy',
-  fontWeight: 'bold',
+  fontFamily: 'VT323',
   fontSize: '2rem',
   color: palette.white,
   [props.theme.breakpoints.up('xs')]: {
-    fontSize: '4rem',
+    fontSize: '6rem',
   },
   [props.theme.breakpoints.up('sm')]: {
-    fontSize: '3rem',
+    fontSize: '8rem',
   },
   [props.theme.breakpoints.up('md')]: {
-    fontSize: '4rem',
+    fontSize: '8rem',
   },
   [props.theme.breakpoints.up('lg')]: {
-    fontSize: '5rem',
+    fontSize: '10rem',
   },
   [props.theme.breakpoints.up('xl')]: {
-    fontSize: '6rem',
+    fontSize: '10rem',
   },
 }));
 
@@ -96,26 +95,25 @@ const PrevPlayersContainerStyle = styled(Grid)({
 });
 
 const PrevPlayersTitle = styled(Typography)(({ theme }) => ({
-  fontFamily: 'Papyrus, fantasy',
+  fontFamily: 'VT323',
 
   color: palette.white,
-  fontWeight: 'bold',
-  fontSize: '1rem',
+  fontSize: '2rem',
   padding: 5,
   [theme.breakpoints.up('xs')]: {
     fontSize: '2rem',
   },
   [theme.breakpoints.up('sm')]: {
-    fontSize: '1.5rem',
+    fontSize: '2.0rem',
   },
   [theme.breakpoints.up('md')]: {
-    fontSize: '2rem',
-  },
-  [theme.breakpoints.up('lg')]: {
     fontSize: '2.5rem',
   },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '3.5rem',
+  },
   [theme.breakpoints.up('xl')]: {
-    fontSize: '3rem',
+    fontSize: '5rem',
   },
 }));
 

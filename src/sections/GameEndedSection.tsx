@@ -6,7 +6,7 @@ import { Ranking } from '../utils/types';
 
 const WinOrLoseMessageStyled = styled(Typography)(({ theme }) => ({
   fontWeight: 'bold',
-  fontFamily: 'Papyrus, fantasy', //TODO: Solve the problem with the font. It is defined in the global styles, but doesn´t work here when using theme.breakpoints
+  fontFamily: 'VT323', //TODO: Solve the problem with the font. It is defined in the global styles, but doesn´t work here when using theme.breakpoints
   color: palette.white,
   fontSize: '2rem',
   textAlign: 'center',

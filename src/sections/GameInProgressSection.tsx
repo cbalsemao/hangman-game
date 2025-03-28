@@ -60,8 +60,8 @@ const GameInProgressSection = ({
           <Grid item xs={12} md={5}>
             <Box display="flex" flexDirection="column" alignItems="center">
               <Typography
-                variant="h5"
                 sx={{
+                  fontSize: '2rem',
                   fontFamily: theme.typography.fontFamily,
                   fontWeight: 'bold',
                 }}

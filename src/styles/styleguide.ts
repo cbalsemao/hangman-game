@@ -14,8 +14,8 @@ export const palette = {
 
 export const theme = createTheme({
   typography: {
-    fontFamily: 'Papyrus;',
-    fontSize: 16,
+    fontFamily: 'VT323',
+    fontSize: 25,
   },
   breakpoints: {
     values: {
