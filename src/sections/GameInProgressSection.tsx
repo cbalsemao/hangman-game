@@ -13,6 +13,7 @@ const GameInProgContainerStyle = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   textAlign: 'center',
   height: '100vh',
+
   overflow: 'auto',
   [theme.breakpoints.down('sm')]: {
     height: '100%',
@@ -21,7 +22,7 @@ const GameInProgContainerStyle = styled(Box)(({ theme }) => ({
 }));
 
 const BoxContainerGame = styled(Box)(({ theme }) => ({
-  maxWidth: '1000px',
+  width: '80%',
   padding: theme.spacing(5, 0),
   borderRadius: '16px',
   backgroundColor: palette.white,
@@ -79,7 +80,12 @@ const GameInProgressSection = ({
               {getHiddenWord(secretWord, guessedLetters).toUpperCase()}
             </Typography>
 
-            <Typography variant="body1" sx={{ marginBottom: 2 }}>
+            <Typography
+              sx={{
+                padding: 2,
+                fontFamily: theme.typography.fontFamily,
+              }}
+            >
               Incorrect guesses: {wrongLetters.length} / 6
             </Typography>
 

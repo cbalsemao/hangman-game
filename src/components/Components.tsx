@@ -2,6 +2,8 @@ import { Card, Grid, Typography } from '@mui/material';
 import {
   ButtonHM,
   ButtonWrapper,
+  LeaderBoardTitle,
+  RankBoardContainerStyled,
   RankingBdWrapper,
   RankingList,
 } from './StyledComponents';
@@ -28,31 +30,9 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
     .sort((a, b) => b.score - a.score);
 
   return (
-    <Card
-      sx={{
-        width: '60%',
-        padding: 3,
-        backgroundColor: palette.white,
-        boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.15)',
-        borderRadius: '15px',
-        margin: '0 auto',
-      }}
-    >
+    <RankBoardContainerStyled>
       <RankingBdWrapper>
-        <Typography
-          gutterBottom
-          component="div"
-          sx={{
-            textAlign: 'center',
-            fontWeight: 'bold',
-            color: palette.black,
-            marginBottom: 3,
-            letterSpacing: '1px',
-            fontFamily: theme.typography.fontFamily,
-          }}
-        >
-          Leaderboard
-        </Typography>
+        <LeaderBoardTitle>Leaderboard</LeaderBoardTitle>
         <RankingList>
           <Grid container direction="column" spacing={2}>
             {winners.map((player, index) => (
@@ -66,6 +46,12 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
                   borderRadius: '10px',
                   alignItems: 'center',
                   boxShadow: '0px 4px 10px rgba(2, 2, 2, 0.1)',
+                  fontSize: {
+                    xs: '1rem',
+                    sm: '1.5rem',
+                    md: '2rem',
+                    lg: '2.5rem',
+                  },
                 }}
               >
                 <Grid
@@ -74,7 +60,6 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
                   sx={{
                     textAlign: 'center',
                     fontWeight: 'bold',
-                    fontSize: '18px',
                     color: palette.black,
                   }}
                 >
@@ -85,7 +70,6 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
                   xs={5}
                   sx={{
                     textAlign: 'left',
-
                     color: palette.black,
                   }}
                 >
@@ -96,8 +80,6 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
                   xs={2}
                   sx={{
                     textAlign: 'center',
-                    fontSize: '14px',
-                    fontWeight: '500',
                     color: palette.black,
                   }}
                 >
@@ -108,8 +90,6 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
                   xs={3}
                   sx={{
                     textAlign: 'center',
-                    fontSize: '14px',
-                    fontWeight: '500',
                     color: palette.black,
                   }}
                 >
@@ -120,6 +100,6 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
           </Grid>
         </RankingList>
       </RankingBdWrapper>
-    </Card>
+    </RankBoardContainerStyled>
   );
 };

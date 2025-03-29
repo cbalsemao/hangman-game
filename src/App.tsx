@@ -42,8 +42,11 @@ export const Timer = () => {
   return (
     <Box>
       <Typography
-        variant="body1"
-        sx={{ fontFamily: theme.typography.fontFamily, fontWeight: 'bold' }}
+        sx={{
+          fontFamily: theme.typography.fontFamily,
+          fontWeight: 'bold',
+          fontSize: '1.5rem',
+        }}
       >
         Time:
       </Typography>

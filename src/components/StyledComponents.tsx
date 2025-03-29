@@ -1,4 +1,11 @@
-import { Button, CardContent, Grid, styled } from '@mui/material';
+import {
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  styled,
+  Typography,
+} from '@mui/material';
 import { palette, theme } from '../styles/styleguide';
 
 export const TitleWrapper = styled('div')({
@@ -63,12 +70,7 @@ export const RankingBdWrapper = styled(CardContent)`
   align-items: center;
   flex-direction: column;
   justify-content: center;
-  /* fontSize: {
-                        xs: '1.5rem', // Small screens
-                        sm: '1.8rem', // Medium screens
-                        md: '2.0rem', // Large screens
-                        lg: '2.5rem', // Extra large screens
-                      }, */
+  font-size: 1.5rem;
 `;
 
 export const RankingList = styled('ul')`
@@ -102,7 +104,7 @@ export const AppWrapper = styled(Grid)({
   top: 0,
   left: 0,
   height: '100%',
-  width: '100vw',
+  width: '100%',
   alignItems: 'center',
   justifyContent: 'center',
   flexDirection: 'column',
@@ -112,4 +114,33 @@ export const AppWrapper = styled(Grid)({
   backgroundRepeat: 'no-repeat',
   margin: 0,
   padding: 0,
+});
+export const LeaderBoardTitle = styled(Typography)({
+  paddingBottom: 10,
+  textAlign: 'center',
+  fontWeight: 'bold',
+  color: palette.black,
+  marginBottom: 3,
+  letterSpacing: '1px',
+  fontFamily: theme.typography.fontFamily,
+  fontSize: '2rem',
+  [theme.breakpoints.down('md')]: {
+    fontSize: '1.5rem',
+  },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '1.2rem',
+  },
+  [theme.breakpoints.down('xs')]: {
+    fontSize: '1rem',
+  },
+  textTransform: 'uppercase',
+});
+
+export const RankBoardContainerStyled = styled(Card)({
+  width: '65%',
+  padding: 3,
+  backgroundColor: palette.white,
+  boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.15)',
+  borderRadius: '15px',
+  margin: '0 auto',
 });
