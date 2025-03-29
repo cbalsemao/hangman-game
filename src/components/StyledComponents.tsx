@@ -63,6 +63,12 @@ export const RankingBdWrapper = styled(CardContent)`
   align-items: center;
   flex-direction: column;
   justify-content: center;
+  /* fontSize: {
+                        xs: '1.5rem', // Small screens
+                        sm: '1.8rem', // Medium screens
+                        md: '2.0rem', // Large screens
+                        lg: '2.5rem', // Extra large screens
+                      }, */
 `;
 
 export const RankingList = styled('ul')`

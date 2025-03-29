@@ -30,17 +30,17 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
   return (
     <Card
       sx={{
-        width: 400,
+        width: '60%',
         padding: 3,
         backgroundColor: palette.white,
         boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.15)',
         borderRadius: '15px',
+        margin: '0 auto',
       }}
     >
       <RankingBdWrapper>
         <Typography
           gutterBottom
-          variant="h5"
           component="div"
           sx={{
             textAlign: 'center',
@@ -85,8 +85,7 @@ export const RankingBoard = ({ rankings }: { rankings: Ranking[] }) => {
                   xs={5}
                   sx={{
                     textAlign: 'left',
-                    fontWeight: 'bold',
-                    fontSize: '16px',
+
                     color: palette.black,
                   }}
                 >
